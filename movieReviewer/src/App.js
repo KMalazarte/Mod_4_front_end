@@ -14,7 +14,8 @@ class App extends React.Component {
   componentDidMount() {
     // /discover/movie?sort_by=popularity.desc
     // fetch('https://api.themoviedb.org/discover/movie?primary_release_date.gte=2014-09-15&primary_release_date.lte=2014-10-22')
-    fetch(`https://api.themoviedb.org/discover?api_key=be88eec84f09c039b6c361bdf5e07e11`)
+    fetch(`https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=be88eec84f09
+    c039b6c361bdf5e07e11`)
     .then(response => response.json())
     .then(console.log)
     .then(moviesArr =>  {
