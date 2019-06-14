@@ -22,7 +22,7 @@ class MoviePage extends React.Component {
     // console.log(this.state.movies);
       return(
         <div>
-          <h1> Look at all these chickens </h1>
+          <h1> Look at all these chickens MOVIE PAGE </h1>
           <MovieContainer
           movies={this.state.movies}/>
         </div>
