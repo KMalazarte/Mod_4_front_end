@@ -5,7 +5,7 @@ class MainPage extends React.Component {
 
   state = {
     movies: [],
-
+    selectedMovie: []
   }
 
   componentDidMount() {
@@ -20,12 +20,15 @@ class MainPage extends React.Component {
   }
 
   clickHandler = (e) => {
-    console.log(e.currentTarget.id);
-    let selectedMovie = this.state.movies.find(movie => movie.title === e.currentTarget.title)
-    // this.setState({
-    //
-    // })
+    let selectedMovie = this.state.movies.find(movie => movie.title === e.currentTarget.id)
+    this.setState({
+      selectedMovie: selectedMovie
+    })
   }
+
+  // reviewClickHandler = (e) => {
+  //
+  // }
 
   render() {
     // console.log();
@@ -34,7 +37,9 @@ class MainPage extends React.Component {
           <h1> Look at all these chickens MOVIE PAGE </h1>
           <MovieContainer
           movies={this.state.movies}
-          clickHandler={this.clickHandler}/>
+          clickHandler={this.clickHandler}
+          selectedMovie={this.state.selectedMovie}
+          />
         </div>
       )
   }

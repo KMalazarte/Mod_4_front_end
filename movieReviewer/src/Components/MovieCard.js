@@ -13,6 +13,7 @@ class MovieCard extends React.Component {
           <img src={source} alt="Poster goes here"/>
           <p>Description: {this.props.movie.description}</p>
           <p>Average Score: {this.props.movie.avg_score}</p>
+          <button onClick={this.props.reviewClickHandler}>Review Me </button>
         </div>
   )}
 }

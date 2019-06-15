@@ -5,7 +5,7 @@ class MovieContainer extends React.Component {
 
   render() {
     // console.log(this.props.movies);
-    const movieCards = this.props.movies.map(movie => <MovieCard key={movie.id} id={movie.title} movie={movie} clickHandler={this.props.clickHandler}/>)
+    const movieCards = this.props.movies.map(movie => <MovieCard key={movie.id} id={movie.title} movie={movie} clickHandler={this.props.clickHandler} reviewClickHandler={this.props.reviewClickHandler}/>)
       return(
         <div>
         {movieCards}
