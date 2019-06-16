@@ -35,18 +35,12 @@ class MainPage extends React.Component {
     // console.log();
       return(
         <Container fluid>
-          <Row>
-            <Col>
-              <h1> Look at all these chickens MOVIE PAGE </h1>
-              <MovieContainer
-              movies={this.state.movies}
-              clickHandler={this.clickHandler}
-              selectedMovie={this.state.selectedMovie}
-              />
-            </Col>
-            <Col>
-            </Col>
-          </Row>
+          <h1> MOVIE PAGE </h1>
+            <MovieContainer
+            movies={this.state.movies}
+            clickHandler={this.clickHandler}
+            selectedMovie={this.state.selectedMovie}
+            />
         </Container>
       )
   }
