@@ -1,16 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import MainPage from './Components/MainPage';
-import UserPage from './Components/UserPage'
+import MainPage from './Pages/MainPage';
+import UserPage from './Pages/UserPage';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import NoMatch from './Components/NoMatch';
+import NavBar from './Components/NavBar';
 
 class App extends React.Component {
   render() {
     return (
-      <div>
-        <MainPage />
-        <UserPage />
-      </div>
+      <React.Fragment>
+          <NavBar />
+            <Router>
+              <Switch>
+                <Route exact path="/" component={MainPage} />
+                <Route path ="/user" component={UserPage}/>
+                <Route component={NoMatch} />
+              </Switch>
+            </Router>
+        </React.Fragment>
     );
   }
 
