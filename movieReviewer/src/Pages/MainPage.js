@@ -1,5 +1,6 @@
 import React from 'react'
 import MovieContainer from '../Components/MovieContainer';
+import { Container, Row, Col } from 'react-bootstrap';
 
 class MainPage extends React.Component {
 
@@ -33,14 +34,20 @@ class MainPage extends React.Component {
   render() {
     // console.log();
       return(
-        <div>
-          <h1> Look at all these chickens MOVIE PAGE </h1>
-          <MovieContainer
-          movies={this.state.movies}
-          clickHandler={this.clickHandler}
-          selectedMovie={this.state.selectedMovie}
-          />
-        </div>
+        <Container fluid>
+          <Row>
+            <Col>
+              <h1> Look at all these chickens MOVIE PAGE </h1>
+              <MovieContainer
+              movies={this.state.movies}
+              clickHandler={this.clickHandler}
+              selectedMovie={this.state.selectedMovie}
+              />
+            </Col>
+            <Col>
+            </Col>
+          </Row>
+        </Container>
       )
   }
 
