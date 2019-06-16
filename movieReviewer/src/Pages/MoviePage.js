@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Row, Col, Image } from 'react-bootstrap'
+import { Container, Row, Col, Image, Button, Form } from 'react-bootstrap'
 
 class MoviePage extends React.Component {
   render() {
@@ -8,14 +8,18 @@ class MoviePage extends React.Component {
     return(
       <Container fluid>
         <Row>
-          <Col sm="4">
+          <Col sm="3">
             <Image src={source} rounded />
           </Col>
           <Col >
             <h1>{this.props.selectedMovie.title}</h1>
             <h2>Avg Score: {this.props.selectedMovie.avg_score}</h2>
             <p>Overview: <br/> {this.props.selectedMovie.description}</p>
-            <button>Push me </button>
+            <Form.Group controlId="exampleForm.ControlTextarea1">
+              <Form.Label>Make a review below:</Form.Label>
+              <Form.Control as="textarea" rows="3" />
+            </Form.Group>
+            <Button variant="info">Push me </Button>
           </Col>
         </Row>
       </Container>
