@@ -4,6 +4,8 @@ import UserPage from './Pages/UserPage';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NoMatch from './Components/NoMatch';
 import NavBar from './Components/NavBar';
+import LoginPage from './Components/LoginPage'
+import Signup from './Components/Signup'
 
 class App extends React.Component {
   render() {

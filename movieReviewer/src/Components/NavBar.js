@@ -1,4 +1,6 @@
 import React from 'react'
+// import LoginPage from './Components/LoginPage'
+// import Signup from './Components/Signup'
 // import styled from 'styled-components'
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap'
 // import { Navbar from 'react-bootstrap'
