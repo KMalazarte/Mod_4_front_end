@@ -36,12 +36,12 @@ class MainPage extends React.Component {
   render() {
         if (this.state.selectedMovie === "") {
         return(
-          <Container fluid>
-            <h1> MAIN PAGE </h1>
-              <MovieContainer
-              movies={this.state.movies}
-              clickHandler={this.clickHandler}
-              />
+          <Container className="bg" fluid>
+              <h1> MAIN PAGE </h1>
+                <MovieContainer
+                movies={this.state.movies}
+                clickHandler={this.clickHandler}
+                />
           </Container>
         )
       } else {
