@@ -16,7 +16,7 @@ class MoviePage extends React.Component {
             <h2>Avg Score: {this.props.selectedMovie.avg_score}</h2>
             <p>Overview: <br/> {this.props.selectedMovie.description}</p>
             <Form.Group controlId="exampleForm.ControlTextarea1">
-              <Form.Label>Make a review below:</Form.Label>
+              <Form.Label>Create a review below:</Form.Label>
               <Form.Control as="textarea" rows="3" />
             </Form.Group>
             <Button variant="info">Push me </Button>
