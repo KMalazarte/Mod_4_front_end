@@ -1,12 +1,14 @@
 import React from 'react'
 import { Container, Row, Col, Image, Button, Form } from 'react-bootstrap'
+import ReviewContainer from '../Components/ReviewContainer'
 
 class MoviePage extends React.Component {
 
   state={
     input: "",
-    score: 0,
-    reviews:[],
+    score: "",
+    reviews: "",
+    newInput: ""
   }
 
   reviewHandler = (e) => {
@@ -27,7 +29,8 @@ class MoviePage extends React.Component {
     e.preventDefault()
     let form = e.target
     this.setState({
-      reviews: [...this.state.reviews, this.state.input]
+      reviews: this.state.input,
+      newScore: this.state.score
     })
     form.reset()
   }
@@ -68,7 +71,10 @@ class MoviePage extends React.Component {
             <Button type="submit" variant="info">Submit</Button>
             </Form>
             <h1>Reviews:</h1>
-              <p>{this.state.reviews}</p>
+            <ReviewContainer
+              score={this.state.newScore}
+              review={this.state.reviews}
+            />
           </Col>
         </Row>
       </Container>

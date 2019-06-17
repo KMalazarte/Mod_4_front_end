@@ -10,7 +10,7 @@ class MovieCard extends React.Component {
     // console.log(this.props.movie);
     return(
       <Card key={this.props.movie.title} id={this.props.movie.title} onClick={this.props.clickHandler} style={{ width: '18rem' }}>
-        <Card.Img variant="top" onClick={console.log(source)} src={source} />
+        <Card.Img variant="top" src={source} />
       </Card>
   )}
 }
