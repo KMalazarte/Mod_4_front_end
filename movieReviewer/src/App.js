@@ -16,6 +16,8 @@ class App extends React.Component {
               <Switch>
                 <Route exact path="/" component={MainPage} />
                 <Route path ="/user" component={UserPage}/>
+                <Route path ="/login" component={LoginPage}/>
+                <Route path ="/signup" component={Signup}/>
                 <Route component={NoMatch} />
               </Switch>
             </Router>
