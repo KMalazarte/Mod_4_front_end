@@ -43,7 +43,8 @@ class MoviePage extends React.Component {
       body: JSON.stringify({
         movie_id: this.props.selectedMovie.id,
         r_comment: this.state.input,
-        r_score: this.state.score
+        r_score: this.state.score,
+        username: localStorage.username
       })
     })
   }
