@@ -3,13 +3,20 @@ import React from 'react';
 class LoginPage extends React.Component{
   state={
   username: '',
-  password: ''
+  password: '',
+  token: ''
 }
 
-// componentDidMount() {
-// if (!!localStorage.getItem("token")) {
-//   }
-// }
+    // componentDidMount() {
+    //   fetch('http://localhost:3000/profile', {
+    //     method: 'GET',
+    //     headers: {
+    //       Authorization: `Bearer ${this.state.token}`
+    //     }
+    //   })
+    //   .then(response => response.json())
+    //   .then(console.log)
+    // }
 
 handleChange = (event) => {
   this.setState({
@@ -37,11 +44,14 @@ handleChange = (event) => {
   .then(r => r.json())
   .then(data => {
     console.log(data)
-    localStorage.setItem('token', data.token, 'user_id', data.user_id)
+    localStorage.setItem('token', data.jwt)
+    localStorage.setItem('user_id', data.user.id)
+    localStorage.setItem('username', data.user.username)
   })
   }
 
   render(){
+
     return(
       <form onSubmit={this.handleLogin}>
           <input type="text" name="username" onChange={this.handleChange} />

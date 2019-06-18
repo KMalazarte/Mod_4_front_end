@@ -6,10 +6,7 @@ class Signup extends React.Component{
   password: ''
 }
 
-// componentDidMount() {
-// if (!!localStorage.getItem("token")) {
-//   }
-// }
+
 
 handleChange = (event) => {
   this.setState({

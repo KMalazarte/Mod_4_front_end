@@ -17,7 +17,8 @@ class ReviewContainer extends React.Component {
 
 
   render() {
-    console.log(this.props.currentReviews)
+    // console.log(Array.isArray(this.props.currentReviews))
+    // console.log(this.props.currentReviews)
     const reviews = this.props.currentReviews.map(review => {
       return <ReviewCard
         review={review}

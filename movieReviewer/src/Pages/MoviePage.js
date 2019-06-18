@@ -29,16 +29,11 @@ class MoviePage extends React.Component {
   componentDidMount(){
     fetch(`http://localhost:3000/movies/${this.props.selectedMovie.id}/reviews`)
       .then(response => response.json())
-      .then(data => this.setState({ currentReviews: [data] }));
+      .then(data => this.setState({ currentReviews: data.review }));
   }
 
   formReset = (e) => {
     e.preventDefault()
-    let form = e.target
-    this.setState({
-      reviews: this.state.input,
-      newScore: this.state.score
-    })
     fetch(`http://localhost:3000/movies/${this.props.selectedMovie.id}/reviews`, {
       method: 'POST',
       headers: {
@@ -47,12 +42,10 @@ class MoviePage extends React.Component {
       },
       body: JSON.stringify({
         movie_id: this.props.selectedMovie.id,
-        r_comment: this.state.reviews,
-
-        // user_id: current_user
+        r_comment: this.state.input,
+        r_score: this.state.score
       })
     })
-    form.reset()
   }
 
   render() {
