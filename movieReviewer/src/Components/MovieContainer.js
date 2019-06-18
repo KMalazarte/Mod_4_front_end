@@ -8,13 +8,13 @@ class MovieContainer extends React.Component {
 
     const movieCards = this.props.movies.map(movie =>
       <Col sm="4">
-        <MovieCard
-            key={movie.title}
-            id={movie.id}
-            movie={movie}
-            clickHandler={this.props.clickHandler}
-            reviewClickHandler={this.props.reviewClickHandler}
-          />
+          <MovieCard
+              key={movie.title}
+              id={movie.id}
+              movie={movie}
+              clickHandler={this.props.clickHandler}
+              reviewClickHandler={this.props.reviewClickHandler}
+            />
       </Col>)
       return(
         <Container fluid>

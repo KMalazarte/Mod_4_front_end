@@ -13,7 +13,7 @@ class MoviePage extends React.Component {
   }
 
   reviewHandler = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     this.setState({
       input: e.target.value
     })
@@ -29,15 +29,21 @@ class MoviePage extends React.Component {
   componentDidMount(){
     fetch(`http://localhost:3000/movies/${this.props.selectedMovie.id}/reviews`)
       .then(response => response.json())
-      .then(data => this.setState({ currentReviews: [data] }));
+      .then(reviews =>
+        this.setState({
+          currentReviews: reviews.review
+        })
+      );
   }
 
   formReset = (e) => {
     e.preventDefault()
     let form = e.target
+    let revObj= {movie_id: this.props.selectedMovie.id, r_comment: this.state.input, r_score: this.state.score}
+
     this.setState({
       reviews: this.state.input,
-      newScore: this.state.score
+      currentReviews: [...this.state.currentReviews, revObj]
     })
     fetch(`http://localhost:3000/movies/${this.props.selectedMovie.id}/reviews`, {
       method: 'POST',
@@ -47,11 +53,12 @@ class MoviePage extends React.Component {
       },
       body: JSON.stringify({
         movie_id: this.props.selectedMovie.id,
-        r_comment: this.state.reviews,
-
-        // user_id: current_user
+        r_comment: this.state.input,
+        r_score: this.state.score
       })
     })
+
+
     form.reset()
   }
 
@@ -60,7 +67,7 @@ class MoviePage extends React.Component {
     //   return
     // })
 
-    console.log(this.state.reviews);
+
     const source = `http://image.tmdb.org/t/p/w342/${this.props.selectedMovie.movie_img}`
     return(
       <Container fluid>
@@ -76,6 +83,7 @@ class MoviePage extends React.Component {
             <Form.Group onChange={this.scoreHandler} controlId="exampleForm.ControlSelect1">
             <Form.Label>Select your score</Form.Label>
             <Form.Control  as="select">
+            <option>Select a score</option>
             <option>1</option>
             <option>2</option>
             <option>3</option>
