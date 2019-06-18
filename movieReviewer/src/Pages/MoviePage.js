@@ -8,7 +8,8 @@ class MoviePage extends React.Component {
     input: "",
     score: "",
     reviews: "",
-    newInput: ""
+    newInput: "",
+    currentReviews: []
   }
 
   reviewHandler = (e) => {
@@ -25,6 +26,12 @@ class MoviePage extends React.Component {
     })
   }
 
+  componentDidMount(){
+    fetch(`http://localhost:3000/movies/${this.props.selectedMovie.id}/reviews`)
+      .then(response => response.json())
+      .then(data => this.setState({ currentReviews: [data] }));
+  }
+
   formReset = (e) => {
     e.preventDefault()
     let form = e.target
@@ -32,11 +39,28 @@ class MoviePage extends React.Component {
       reviews: this.state.input,
       newScore: this.state.score
     })
+    fetch(`http://localhost:3000/movies/${this.props.selectedMovie.id}/reviews`, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        movie_id: this.props.selectedMovie.id,
+        r_comment: this.state.reviews,
+
+        // user_id: current_user
+      })
+    })
     form.reset()
   }
 
   render() {
-    console.log(this.state.score);
+    // const reviewArr = this.state.currentReviews.map(review => {
+    //   return
+    // })
+
+    console.log(this.state.reviews);
     const source = `http://image.tmdb.org/t/p/w342/${this.props.selectedMovie.movie_img}`
     return(
       <Container fluid>
@@ -74,6 +98,7 @@ class MoviePage extends React.Component {
             <ReviewContainer
               score={this.state.newScore}
               review={this.state.reviews}
+              currentReviews={this.state.currentReviews}
             />
           </Col>
         </Row>
