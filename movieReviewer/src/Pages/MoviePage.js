@@ -50,13 +50,39 @@ class MoviePage extends React.Component {
   }
 
   render() {
+
+    const form = this.props.loggedIn ? <Form onSubmit={this.formReset}>
+    <Form.Group onChange={this.scoreHandler} controlId="exampleForm.ControlSelect1">
+    <Form.Label>Select your score</Form.Label>
+    <Form.Control  as="select">
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
+    <option>6</option>
+    <option>7</option>
+    <option>8</option>
+    <option>9</option>
+    <option>10</option>
+    </Form.Control>
+    </Form.Group>
+    <Form.Group onChange={this.reviewHandler} id="review_form" controlId="exampleForm.ControlTextarea1">
+      <Form.Label>Create a review below:</Form.Label>
+      <Form.Control as="textarea" rows="3" />
+    </Form.Group>
+    <Button type="submit" variant="info">Submit</Button>
+    </Form>
+    : console.log('login')
+
     // const reviewArr = this.state.currentReviews.map(review => {
     //   return
     // })
 
-    console.log(this.state.reviews);
+    console.log(this.props.loggedIn);
     const source = `http://image.tmdb.org/t/p/w342/${this.props.selectedMovie.movie_img}`
     return(
+
       <Container fluid>
         <Row>
           <Col sm="3">
@@ -66,6 +92,7 @@ class MoviePage extends React.Component {
             <h1>{this.props.selectedMovie.title}</h1>
             <h2>Avg Score: {this.props.selectedMovie.avg_score}</h2>
             <p>Overview: <br/> {this.props.selectedMovie.description}</p>
+
             <Form onSubmit={this.formReset}>
             <Form.Group onChange={this.scoreHandler} controlId="exampleForm.ControlSelect1">
             <Form.Label>Select your score</Form.Label>
@@ -88,6 +115,7 @@ class MoviePage extends React.Component {
             </Form.Group>
             <Button type="submit" variant="info">Submit</Button>
             </Form>
+
             <h1>Reviews:</h1>
             <ReviewContainer
               score={this.state.newScore}

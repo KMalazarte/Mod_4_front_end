@@ -31,7 +31,7 @@ class App extends React.Component {
           <NavBar />
             <Router>
               <Switch>
-                <Route exact path="/" component={MainPage} />
+                <Route exact path="/" render={() => <MainPage loggedIn={this.state.loggedIn} />} />
                 <Route path ="/user" component={UserPage}/>
                 <Route path ="/login" render={() => <LoginPage loggedIn={this.state.loggedIn} logOut={this.logOut} logIn={this.logIn} />}/>
                 <Route path ="/signup" component={Signup}/>

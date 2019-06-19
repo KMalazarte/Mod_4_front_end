@@ -49,6 +49,7 @@ class MainPage extends React.Component {
             <Container fluid>
                 <MoviePage
                 selectedMovie={this.state.selectedMovie}
+                loggedIn={this.props.loggedIn}
                 />
             </Container>
           )

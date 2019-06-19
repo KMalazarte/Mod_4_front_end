@@ -53,7 +53,7 @@ handleChange = (event) => {
   }
 
   render(){
-    const logInAlert = this.props.loggedIn ? <h1> Welcome {localStorage.username} </h1> : console.log('Logged out')
+    const logInAlert = this.props.loggedIn ? <h1> Logged In </h1> : console.log('Logged out')
     const logInBtn =  this.props.loggedIn ? <button onClick={this.props.logOut}>Log Out</button> : <input type="submit" value="Log In" />
 
     console.log(this.props.loggedIn)
