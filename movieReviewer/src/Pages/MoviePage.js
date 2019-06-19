@@ -40,7 +40,7 @@ class MoviePage extends React.Component {
     e.preventDefault()
 
     let form = e.target
-    let revObj= {movie_id: this.props.selectedMovie.id, r_comment: this.state.input, r_score: this.state.score}
+    let revObj= {movie_id: this.props.selectedMovie.id, r_comment: this.state.input, r_score: this.state.score, username: localStorage.username}
 
     this.setState({
       reviews: this.state.input,
