@@ -48,13 +48,15 @@ handleChange = (event) => {
     localStorage.setItem('token', data.jwt)
     localStorage.setItem('user_id', data.user.id)
     localStorage.setItem('username', data.user.username)
+    localStorage.setItem('loggedIn', true)
   })
   this.props.logIn()
   }
 
   render(){
-    const logInAlert = this.props.loggedIn ? <h1> Logged In </h1> : console.log('Logged out')
-    const logInBtn =  this.props.loggedIn ? <button onClick={this.props.logOut}>Log Out</button> : <input type="submit" value="Log In" />
+    const logInAlert = localStorage.loggedIn == "true" ? <h1> Logged In </h1> : console.log('Logged out')
+
+    const logInBtn =  localStorage.loggedIn == "true" ? <button onClick={this.props.logOut}>Log Out</button> : <input type="submit" value="Log In" />
 
     console.log(this.props.loggedIn)
 

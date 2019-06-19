@@ -107,7 +107,7 @@ form.reset()
             <h1>{this.props.selectedMovie.title}</h1>
             <h2>Avg Score: {this.props.selectedMovie.avg_score}</h2>
             <p>Overview: <br/> {this.props.selectedMovie.description}</p>
-
+            {localStorage.loggedIn == "true" ?
             <Form onSubmit={this.formReset}>
             <Form.Group onChange={this.scoreHandler} controlId="exampleForm.ControlSelect1">
             <Form.Label>Select your score</Form.Label>
@@ -131,7 +131,7 @@ form.reset()
             </Form.Group>
             <Button type="submit" variant="info">Submit</Button>
             </Form>
-
+            : console.log('coo')}
             <h1>Reviews:</h1>
             <ReviewContainer
               score={this.state.newScore}
