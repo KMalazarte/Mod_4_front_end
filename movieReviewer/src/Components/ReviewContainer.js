@@ -4,6 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 class ReviewContainer extends React.Component {
   render() {
+
     // console.log(this.props.currentReviews.review);
     const reviews = this.props.currentReviews.map(review =>
       <Col sm="5">
