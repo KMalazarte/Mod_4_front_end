@@ -8,6 +8,23 @@ import LoginPage from './Components/LoginPage'
 import Signup from './Components/Signup'
 
 class App extends React.Component {
+  state = {
+    loggedIn: false
+  }
+
+  logIn = () => {
+    this.setState({
+      loggedIn: true
+    })
+  }
+
+  logOut = () => {
+    this.setState({
+      loggedIn: false
+    })
+    localStorage.clear()
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -16,7 +33,7 @@ class App extends React.Component {
               <Switch>
                 <Route exact path="/" component={MainPage} />
                 <Route path ="/user" component={UserPage}/>
-                <Route path ="/login" component={LoginPage}/>
+                <Route path ="/login" render={() => <LoginPage loggedIn={this.state.loggedIn} logOut={this.logOut} logIn={this.logIn} />}/>
                 <Route path ="/signup" component={Signup}/>
                 <Route component={NoMatch} />
               </Switch>

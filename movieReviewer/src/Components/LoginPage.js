@@ -7,6 +7,7 @@ class LoginPage extends React.Component{
   token: ''
 }
 
+
     // componentDidMount() {
     //   fetch('http://localhost:3000/profile', {
     //     method: 'GET',
@@ -48,19 +49,29 @@ handleChange = (event) => {
     localStorage.setItem('user_id', data.user.id)
     localStorage.setItem('username', data.user.username)
   })
+  this.props.logIn()
   }
 
   render(){
+    const logInAlert = this.props.loggedIn ? <h1> Welcome {localStorage.username} </h1> : console.log('Logged out')
+    const logInBtn =  this.props.loggedIn ? <button onClick={this.props.logOut}>Log Out</button> : <input type="submit" value="Log In" />
+
+    console.log(this.props.loggedIn)
 
     return(
+      <div>
       <form onSubmit={this.handleLogin}>
           <input type="text" name="username" onChange={this.handleChange} />
         <input type="password" name="password" onChange={this.handleChange} />
 
-        <input type="submit" value="Log In" />
+        {logInBtn}
       </form>
+      {logInAlert}
+      </div>
     )
   }
 }
+// <h1>Welcome {localStorage.username}</h1>
+// localStorage.username
 
 export default LoginPage

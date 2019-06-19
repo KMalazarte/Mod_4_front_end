@@ -7,7 +7,7 @@ class MainPage extends React.Component {
 
   state = {
     movies: [],
-    selectedMovie: ""
+    selectedMovie: "",
   }
 
   componentDidMount() {
