@@ -16,12 +16,14 @@ class App extends React.Component {
     this.setState({
       loggedIn: true
     })
+    alert('Logged In')
   }
 
   logOut = () => {
     this.setState({
       loggedIn: false
     })
+    alert('Logged Out')
     localStorage.clear()
   }
 

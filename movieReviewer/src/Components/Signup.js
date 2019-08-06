@@ -6,8 +6,6 @@ class Signup extends React.Component{
   password: ''
 }
 
-
-
 handleChange = (event) => {
   this.setState({
     [event.target.name]: event.target.value
@@ -33,6 +31,7 @@ handleSignup = (event) => {
   })
   .then(r => r.json())
   .then(r => console.log(r))
+  alert(`Welcome ${this.state.username}`)
 }
 
   render(){
