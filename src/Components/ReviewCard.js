@@ -18,7 +18,7 @@ class ReviewCard extends React.Component {
   // }
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     return(
       <Card bg="secondary" text="white" style={{ width: '18rem' }}>
         <Card.Header>{this.props.review.username}</Card.Header>

@@ -1,21 +1,31 @@
 import React from 'react'
+import UserReviews from '../Components/UserReviews'
+import { Container } from 'react-bootstrap';
 
 class UserPage extends React.Component {
 
   state={
-    reviews: []
+    userReviews: []
+  }
+
+  componentDidMount(){
+    fetch(`http://localhost:3000/reviews/${localStorage.user_id}`)
+      .then(response => response.json())
+      .then(reviews =>
+        this.setState({
+          userReviews: reviews.reviews
+        })
+      )
   }
 
   render() {
-    let src = "URL"
     return(
-      <div>
+      <Container>
         <h1> {localStorage.username}'s PAGE </h1>
-        <img src={src} alt=""/>
-        <ul> REVIEWS YOU HAVE CREATED: </ul>
-          <li> review 1 </li>
-          <li> review 2 </li>
-      </div>
+        <UserReviews
+        userReviews={this.state.userReviews}
+        />
+      </Container>
     )
   }
 }
