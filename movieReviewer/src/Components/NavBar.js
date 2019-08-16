@@ -15,12 +15,12 @@ const NavBar = () => (
     <Nav.Link href="/login">Login</Nav.Link>
     <Nav.Link href="/Signup">Signup</Nav.Link>
     </Nav>
-    <Form inline>
-      <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-      <Button variant="outline-success">Search</Button>
-    </Form>
   </Navbar.Collapse>
 </Navbar>
 )
-
+// PUT INTO ABOVE JSX FOR SEARCH FORM AND BUTTON
+// <Form inline>
+//   <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+//   <Button variant="outline-success">Search</Button>
+// </Form>
 export default NavBar

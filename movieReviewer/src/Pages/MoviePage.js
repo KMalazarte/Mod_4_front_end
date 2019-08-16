@@ -55,6 +55,7 @@ class MoviePage extends React.Component {
       },
       body: JSON.stringify({
         movie_id: this.props.selectedMovie.id,
+        user_id: localStorage.user_id,
         r_comment: this.state.input,
         r_score: this.state.score,
         username: localStorage.username
@@ -92,8 +93,6 @@ form.reset()
     // const reviewArr = this.state.currentReviews.map(review => {
     //   return
     // })
-
-    console.log(this.props.loggedIn);
 
     const source = `http://image.tmdb.org/t/p/w342/${this.props.selectedMovie.movie_img}`
     return(
