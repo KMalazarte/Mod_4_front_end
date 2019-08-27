@@ -1,19 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import UserReviews from '../Components/UserReviews'
-import { Container } from 'react-bootstrap';
+import { Container } from 'react-bootstrap'
+import { useHttp } from '../Hooks/http'
 
 const UserPage = () => {
-  
-  const [userReviews, setUserReviews] = useState([])
 
-  useEffect (() => {
-    fetch(`http://localhost:3000/reviews/${localStorage.user_id}`)
-        .then(response => response.json())
-        .then(reviews =>
-          setUserReviews(reviews.reviews
-          )
-        )
-  }, [])
+  const userReviews = useHttp(`http://localhost:3000/reviews/${localStorage.user_id}`, [])
 
     return(
       <Container>
