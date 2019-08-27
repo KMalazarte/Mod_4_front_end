@@ -1,10 +1,9 @@
 import React from 'react'
 import { Card } from 'react-bootstrap';
 
-class UserReviews extends React.Component {
+const UserReviews = props => {
 
-  render() {
-    const reviews = this.props.userReviews.map(review =>
+    const reviews = props.userReviews.map(review =>
       <Card bg="secondary" text="white" style={{ width: '18rem' }}>
         <Card.Header>Movie Title Here</Card.Header>
         <Card.Body>
@@ -21,7 +20,6 @@ class UserReviews extends React.Component {
           <p> {reviews} </p>
       </div>
     )
-  }
 }
 
 export default UserReviews

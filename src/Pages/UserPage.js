@@ -1,33 +1,28 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import UserReviews from '../Components/UserReviews'
 import { Container } from 'react-bootstrap';
 
-class UserPage extends React.Component {
+const UserPage = () => {
+  
+  const [userReviews, setUserReviews] = useState([])
 
-  state={
-    userReviews: []
-  }
-
-  componentDidMount(){
+  useEffect (() => {
     fetch(`http://localhost:3000/reviews/${localStorage.user_id}`)
-      .then(response => response.json())
-      .then(reviews =>
-        this.setState({
-          userReviews: reviews.reviews
-        })
-      )
-  }
+        .then(response => response.json())
+        .then(reviews =>
+          setUserReviews(reviews.reviews
+          )
+        )
+  }, [])
 
-  render() {
     return(
       <Container>
         <h1> {localStorage.username}'s PAGE </h1>
         <UserReviews
-        userReviews={this.state.userReviews}
+        userReviews={userReviews}
         />
       </Container>
     )
-  }
 }
 
 export default UserPage
