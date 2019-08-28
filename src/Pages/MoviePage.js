@@ -67,7 +67,6 @@ form.reset()
   }
 
   render() {
-    console.log(this.props.selectedMovie);
     const form = this.props.loggedIn ? <Form onSubmit={this.formReset}>
     <Form.Group onChange={this.scoreHandler} controlId="exampleForm.ControlSelect1">
     <Form.Label>Select your score</Form.Label>

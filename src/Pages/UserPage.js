@@ -11,7 +11,7 @@ const UserPage = () => {
 
     return(
       <Container>
-        <h1> {localStorage.username}'s PAGE </h1>
+        <h1> {localStorage.username}'s Review Page </h1>
         <UserReviews
         userReviews={userReviews}
         />

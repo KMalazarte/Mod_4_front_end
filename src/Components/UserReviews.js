@@ -1,12 +1,12 @@
 import React from 'react'
 import { useState } from 'react'
-import { Card, Container, Col } from 'react-bootstrap'
+import { Card, Container, Col, Row } from 'react-bootstrap'
 import UserPageReviewCard from "./UserPageReviewCard"
 
 const UserReviews = props => {
 
     const reviewCards = props.userReviews[0].map(review =>
-      <Col sm="3">
+      <Col md="3">
         <UserPageReviewCard
           key={review.id}
           id={review.id}
@@ -19,7 +19,9 @@ const UserReviews = props => {
 
     return(
       <Container fluid>
-        {reviewCards}
+        <Row>
+          {reviewCards}
+        </Row>
       </Container>
     )
 }
