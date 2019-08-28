@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 export const useHttp = (url, dependencies) => {
 
-  const [fetchedData, setFetchedData]= useState([])
+  const [fetchedData, setFetchedData] = useState([])
 
   // fetch("http://localhost:3000/movies")
   useEffect(() => {

@@ -40,7 +40,7 @@ class MoviePage extends React.Component {
     e.preventDefault()
 
     let form = e.target
-    let revObj= {movie_id: this.props.selectedMovie.id, r_comment: this.state.input, r_score: this.state.score, username: localStorage.username}
+    let revObj= {movie_id: this.props.selectedMovie.id, r_comment: this.state.input, r_score: this.state.score, username: localStorage.username, movie_title: this.props.title, movie_poster: this.props.movie_img }
 
     this.setState({
       reviews: this.state.input,
@@ -55,6 +55,8 @@ class MoviePage extends React.Component {
       },
       body: JSON.stringify({
         movie_id: this.props.selectedMovie.id,
+        movie_title: this.props.selectedMovie.title,
+        movie_poster: this.props.selectedMovie.movie_img,
         user_id: localStorage.user_id,
         r_comment: this.state.input,
         r_score: this.state.score,
@@ -65,7 +67,7 @@ form.reset()
   }
 
   render() {
-
+    console.log(this.props.selectedMovie);
     const form = this.props.loggedIn ? <Form onSubmit={this.formReset}>
     <Form.Group onChange={this.scoreHandler} controlId="exampleForm.ControlSelect1">
     <Form.Label>Select your score</Form.Label>

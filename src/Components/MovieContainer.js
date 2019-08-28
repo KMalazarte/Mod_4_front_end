@@ -2,18 +2,16 @@ import React from 'react'
 import MovieCard from './MovieCard';
 import { Container, Row, Col } from 'react-bootstrap';
 
-class MovieContainer extends React.Component {
+const MovieContainer = props => {
 
-  render() {
-
-    const movieCards = this.props.movies.map(movie =>
+    const movieCards = props.movies[0].map(movie =>
       <Col sm="4">
           <MovieCard
               key={movie.title}
               id={movie.id}
               movie={movie}
-              clickHandler={this.props.clickHandler}
-              reviewClickHandler={this.props.reviewClickHandler}
+              clickHandler={props.clickHandler}
+              reviewClickHandler={props.reviewClickHandler}
             />
       </Col>)
       return(
@@ -23,7 +21,6 @@ class MovieContainer extends React.Component {
           </Row>
         </Container>
       )
-  }
 
 
 }

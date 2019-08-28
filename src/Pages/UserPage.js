@@ -7,6 +7,8 @@ const UserPage = () => {
 
   const userReviews = useHttp(`http://localhost:3000/reviews/${localStorage.user_id}`, [])
 
+  // const movies = useHttp("http://localhost:3000/movies", [])
+
     return(
       <Container>
         <h1> {localStorage.username}'s PAGE </h1>

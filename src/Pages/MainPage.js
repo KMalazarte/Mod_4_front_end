@@ -1,46 +1,45 @@
 import React from 'react'
-import MovieContainer from '../Components/MovieContainer';
-import { Container } from 'react-bootstrap';
+import { useState } from 'react'
+import MovieContainer from '../Components/MovieContainer'
+import { Container } from 'react-bootstrap'
 import MoviePage from './MoviePage'
+import { useHttp } from '../Hooks/http'
 
-class MainPage extends React.Component {
+const MainPage = props => {
 
-  state = {
-    movies: [],
-    selectedMovie: "",
-  }
+  // state = {
+  //   movies: [],
+  //   selectedMovie: "",
+  // }
+  const [selectedMovie, setSelectedMovie] = useState("")
 
-  componentDidMount() {
-    fetch("http://localhost:3000/movies")
-    .then(response => response.json())
-    .then(moviesArr =>  {
-      // console.log(moviesArr.movies);
-      this.setState({
-      movies: moviesArr.movies
-      })
-    })
-  }
+  const movies = useHttp(`http://localhost:3000/movies`, [])
 
-  clickHandler = (e) => {
-    // console.log(e.currentTarget.id);
-    let selectedMovie = this.state.movies.find(movie => movie.title === e.currentTarget.id)
-    this.setState({
-      selectedMovie: selectedMovie
-    })
+  // componentDidMount() {
+  //   fetch("http://localhost:3000/movies")
+  //   .then(response => response.json())
+  //   .then(moviesArr =>  {
+  //     // console.log(moviesArr.movies);
+  //     this.setState({
+  //     movies: moviesArr.movies
+  //     })
+  //   })
+  // }
+
+  const clickHandler = (e) => {
+    let clickedMovie = movies[0].find(movie => movie.title === e.currentTarget.id)
+    setSelectedMovie(clickedMovie)
   }
 
   // reviewClickHandler = (e) => {
   //
   // }
-
-  render() {
-        if (this.state.selectedMovie === "") {
+        if (selectedMovie === "") {
         return(
           <Container className="bg" fluid>
-              <h1> MAIN PAGE </h1>
                 <MovieContainer
-                movies={this.state.movies}
-                clickHandler={this.clickHandler}
+                movies={movies}
+                clickHandler={clickHandler}
                 />
           </Container>
         )
@@ -48,15 +47,12 @@ class MainPage extends React.Component {
           return(
             <Container fluid>
                 <MoviePage
-                selectedMovie={this.state.selectedMovie}
-                loggedIn={this.props.loggedIn}
+                selectedMovie={selectedMovie}
+                loggedIn={props.loggedIn}
                 />
             </Container>
           )
         } // else
-
-
-  } //render
 
 } //class MoviePage extends
 
