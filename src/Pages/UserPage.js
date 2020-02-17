@@ -7,13 +7,11 @@ const UserPage = () => {
 
   const userReviews = useHttp(`http://localhost:3000/reviews/${localStorage.user_id}`, [])
 
-  // const movies = useHttp("http://localhost:3000/movies", [])
-
     return(
       <Container>
-        <h1> {localStorage.username}'s Review Page </h1>
+        <h1> Welcome {localStorage.username}! This is your review page </h1>
         <UserReviews
-        userReviews={userReviews}
+          userReviews={userReviews}
         />
       </Container>
     )

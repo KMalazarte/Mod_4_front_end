@@ -31,26 +31,25 @@ const MainPage = props => {
     setSelectedMovie(clickedMovie)
   }
 
-
-        if (selectedMovie === "") {
-        return(
-          <Container className="bg" fluid>
-                <MovieContainer
-                movies={movies}
-                clickHandler={clickHandler}
-                />
-          </Container>
-        )
-      } else {
-          return(
-            <Container fluid>
-                <MoviePage
-                selectedMovie={selectedMovie}
-                loggedIn={props.loggedIn}
-                />
-            </Container>
-          )
-        } // else
+  if (selectedMovie === "") {
+    return(
+      <Container className="bg" fluid>
+        <MovieContainer
+        movies={movies}
+        clickHandler={clickHandler}
+        />
+      </Container>
+    )
+  } else {
+    return(
+      <Container fluid>
+        <MoviePage
+        selectedMovie={selectedMovie}
+        loggedIn={props.loggedIn}
+        />
+      </Container>
+    )
+  } // else
 
 } //class MoviePage extends
 
