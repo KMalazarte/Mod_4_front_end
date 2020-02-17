@@ -31,9 +31,7 @@ const MainPage = props => {
     setSelectedMovie(clickedMovie)
   }
 
-  // reviewClickHandler = (e) => {
-  //
-  // }
+
         if (selectedMovie === "") {
         return(
           <Container className="bg" fluid>
