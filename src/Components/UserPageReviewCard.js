@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Card, Button } from 'react-bootstrap';
 
 const UserPageReviewCard = props => {
@@ -11,10 +11,15 @@ const UserPageReviewCard = props => {
   }
 
   const deleteHandler = (e) => {
-    console.log("Delete was clicked");
+    console.log(e.target.id)
+    fetch(`http://localhost:3000/review/${e.target.id}`, {
+       method: 'DELETE'
+     }).then(() => {
+     }).catch(err => {
+       console.error(err)
+     })
   }
 
-  console.log(props);
 
   const source = `http://image.tmdb.org/t/p/w185/${props.poster}`
 
@@ -32,7 +37,6 @@ const UserPageReviewCard = props => {
       <Button id={props.id} onClick={deleteHandler} variant="danger">Delete</Button>
     </>
     :
-
     <Card onClick={toggleCard}>
       <img alt="oh no!" src={source} />
     </Card>

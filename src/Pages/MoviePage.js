@@ -13,14 +13,12 @@ class MoviePage extends React.Component {
   }
 
   reviewHandler = (e) => {
-    // console.log(e.target.value);
     this.setState({
       input: e.target.value
     })
   }
 
   scoreHandler = (e) => {
-    // console.log(e.target.value);
     this.setState({
       score: e.target.value
     })
@@ -31,9 +29,9 @@ class MoviePage extends React.Component {
       .then(response => response.json())
       .then(reviews =>
         this.setState({
-          currentReviews: reviews.review
+          currentReviews: reviews
         })
-      );
+      )
   }
 
   formReset = (e) => {
@@ -63,7 +61,8 @@ class MoviePage extends React.Component {
         username: localStorage.username
       })
     })
-form.reset()
+
+  form.reset()
   }
 
   render() {
@@ -90,10 +89,6 @@ form.reset()
     <Button type="submit" variant="info">Submit</Button>
     </Form>
     : console.log('login')
-
-    // const reviewArr = this.state.currentReviews.map(review => {
-    //   return
-    // })
 
     const source = `http://image.tmdb.org/t/p/w342/${this.props.selectedMovie.movie_img}`
     return(
