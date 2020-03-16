@@ -4,13 +4,14 @@ import { Card } from 'react-bootstrap'
 
 const MovieCard = props => {
 
-    const source = `http://image.tmdb.org/t/p/w185/${props.movie.movie_img}`
+  const source = `http://image.tmdb.org/t/p/w185/${props.movie.movie_img}`
 
-    return(
-      <Card key={props.movie.title} id={props.movie.title} onClick={props.clickHandler} style={{ width: '18rem' }}>
-        <Card.Img variant="top" src={source} />
-      </Card>
+  return(
+    <Card key={props.movie.title} id={props.movie.title} onClick={props.clickHandler} style={{ width: '18rem' }}>
+      <Card.Img variant="top" src={source} />
+    </Card>
   )
+  
 }
 
 export default MovieCard
