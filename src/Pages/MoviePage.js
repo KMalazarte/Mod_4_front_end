@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Row, Col, Image, Button, Form } from 'react-bootstrap'
+import { Container, Row, Col, Image, Button, Form, Alert } from 'react-bootstrap'
 import ReviewContainer from '../Components/ReviewContainer'
 
 class MoviePage extends React.Component {
@@ -38,11 +38,11 @@ class MoviePage extends React.Component {
     e.preventDefault()
 
     let form = e.target
-    let revObj= {movie_id: this.props.selectedMovie.id, r_comment: this.state.input, r_score: this.state.score, username: localStorage.username, movie_title: this.props.title, movie_poster: this.props.movie_img }
+    let reviewObject= {movie_id: this.props.selectedMovie.id, r_comment: this.state.input, r_score: this.state.score, username: localStorage.username, movie_title: this.props.title, movie_poster: this.props.movie_img }
 
     this.setState({
       reviews: this.state.input,
-      currentReviews: [...this.state.currentReviews, revObj]
+      currentReviews: [...this.state.currentReviews, reviewObject]
     })
 
     fetch(`http://localhost:3000/movies/${this.props.selectedMovie.id}/reviews`, {
@@ -61,12 +61,12 @@ class MoviePage extends React.Component {
         username: localStorage.username
       })
     })
-
-  form.reset()
+    form.reset()
   }
 
   render() {
-    const form = this.props.loggedIn ? <Form onSubmit={this.formReset}>
+    console.log(this.state.reviews);
+    const formOrLogInAlert = localStorage.loggedIn ? <Form onSubmit={this.formReset}>
     <Form.Group onChange={this.scoreHandler} controlId="exampleForm.ControlSelect1">
     <Form.Label>Select your score</Form.Label>
     <Form.Control  as="select">
@@ -88,7 +88,7 @@ class MoviePage extends React.Component {
     </Form.Group>
     <Button type="submit" variant="info">Submit</Button>
     </Form>
-    : console.log('login')
+    : <Alert variant={"warning"}> Please log in to rate and review this movie </Alert>
 
     const source = `http://image.tmdb.org/t/p/w342/${this.props.selectedMovie.movie_img}`
     return(
@@ -102,31 +102,7 @@ class MoviePage extends React.Component {
             <h1>{this.props.selectedMovie.title}</h1>
             <h2>Avg Score: {this.props.selectedMovie.avg_score}</h2>
             <p>Overview: <br/> {this.props.selectedMovie.description}</p>
-            {localStorage.loggedIn == "true" ?
-            <Form onSubmit={this.formReset}>
-            <Form.Group onChange={this.scoreHandler} controlId="exampleForm.ControlSelect1">
-            <Form.Label>Select your score</Form.Label>
-            <Form.Control  as="select">
-            <option>Select a score</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-            <option>9</option>
-            <option>10</option>
-            </Form.Control>
-            </Form.Group>
-            <Form.Group onChange={this.reviewHandler} id="review_form" controlId="exampleForm.ControlTextarea1">
-              <Form.Label>Create a review below:</Form.Label>
-              <Form.Control as="textarea" rows="3" />
-            </Form.Group>
-            <Button type="submit" variant="info">Submit</Button>
-            </Form>
-            : console.log('coo')}
+            {formOrLogInAlert}
             <h1>Reviews:</h1>
             <ReviewContainer
               score={this.state.newScore}

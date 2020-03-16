@@ -45,7 +45,6 @@ const MainPage = props => {
       <Container fluid>
         <MoviePage
         selectedMovie={selectedMovie}
-        loggedIn={props.loggedIn}
         />
       </Container>
     )
