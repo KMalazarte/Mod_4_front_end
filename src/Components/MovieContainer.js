@@ -6,21 +6,23 @@ const MovieContainer = props => {
 
   const movieCards = props.movies[0].map(movie =>
     <Col sm="4">
-        <MovieCard
-            key={movie.title}
-            id={movie.id}
-            movie={movie}
-            clickHandler={props.clickHandler}
-            reviewClickHandler={props.reviewClickHandler}
-          />
-    </Col>)
-    return(
-      <Container fluid>
-        <Row>
-            {movieCards}
-        </Row>
-      </Container>
-    )
+      <MovieCard
+        key={movie.title}
+        id={movie.id}
+        movie={movie}
+        clickHandler={props.clickHandler}
+        reviewClickHandler={props.reviewClickHandler}
+      />
+    </Col>
+  )
+
+  return(
+    <Container fluid>
+      <Row>
+          {movieCards}
+      </Row>
+    </Container>
+  )
 
 }
 

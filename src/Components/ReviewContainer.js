@@ -4,7 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 const ReviewContainer = props => {
 
-  const reviews = this.props.currentReviews.map(review =>
+  const reviews = props.currentReviews.map(review =>
     <Col sm="5">
       <Col>
         <ReviewCard

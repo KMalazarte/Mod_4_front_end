@@ -1,7 +1,6 @@
 import React from 'react'
 import { Card } from 'react-bootstrap'
 
-
 const MovieCard = props => {
 
   const source = `http://image.tmdb.org/t/p/w185/${props.movie.movie_img}`
@@ -11,7 +10,7 @@ const MovieCard = props => {
       <Card.Img variant="top" src={source} />
     </Card>
   )
-  
+
 }
 
 export default MovieCard
