@@ -6,20 +6,11 @@ const UserPageReviewCard = props => {
 
   const [wasClicked, setWasClicked] = useState(false)
 
+  const [deleted, setWasDeleted] = useState(false)
+
   const toggleCard = (e) => {
     setWasClicked(!wasClicked)
   }
-
-  const deleteHandler = (e) => {
-    console.log(e.target.id)
-    fetch(`http://localhost:3000/review/${e.target.id}`, {
-       method: 'DELETE'
-     }).then(() => {
-     }).catch(err => {
-       console.error(err)
-     })
-  }
-
 
   const source = `http://image.tmdb.org/t/p/w185/${props.poster}`
 
@@ -34,7 +25,7 @@ const UserPageReviewCard = props => {
           </Card.Text>
         </Card.Body>
       </Card>
-      <Button id={props.id} onClick={deleteHandler} variant="danger">Delete</Button>
+      <Button id={props.id} onClick={props.deleteHandler} variant="danger">Delete</Button>
     </>
     :
     <Card onClick={toggleCard}>

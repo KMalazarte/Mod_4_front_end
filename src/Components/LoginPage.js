@@ -1,35 +1,26 @@
 import React from 'react';
+import { Form } from 'react-bootstrap'
+
 
 class LoginPage extends React.Component{
+
   state={
-  username: '',
-  password: '',
-  token: ''
-}
+    username: '',
+    password: '',
+    token: ''
+  }
 
-
-    // componentDidMount() {
-    //   fetch('http://localhost:3000/profile', {
-    //     method: 'GET',
-    //     headers: {
-    //       Authorization: `Bearer ${this.state.token}`
-    //     }
-    //   })
-    //   .then(response => response.json())
-    //   .then(console.log)
-    // }
-
-handleChange = (event) => {
-  this.setState({
-    [event.target.name]: event.target.value
-  })
-}
+  handleChange = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
 
   handleLogin = (event) => {
     event.preventDefault()
 
     // login using a POST request
-    fetch('http://localhost:3000/login', {
+  fetch('http://localhost:3000/login', {
     method: 'POST',
     headers: {
       "Content-Type": "application/json",
@@ -44,7 +35,6 @@ handleChange = (event) => {
   })
   .then(r => r.json())
   .then(data => {
-    console.log(data)
     localStorage.setItem('token', data.jwt)
     localStorage.setItem('user_id', data.user.id)
     localStorage.setItem('username', data.user.username)
@@ -62,18 +52,15 @@ handleChange = (event) => {
 
     return(
       <div>
-      <form onSubmit={this.handleLogin}>
+        <Form onSubmit={this.handleLogin}>
           <input type="text" name="username" onChange={this.handleChange} />
-        <input type="password" name="password" onChange={this.handleChange} />
-
-        {logInBtn}
-      </form>
-      {logInAlert}
+          <input type="password" name="password" onChange={this.handleChange} />
+          {logInBtn}
+        </Form>
+        {logInAlert}
       </div>
     )
   }
 }
-// <h1>Welcome {localStorage.username}</h1>
-// localStorage.username
 
 export default LoginPage
