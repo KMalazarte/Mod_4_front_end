@@ -63,40 +63,51 @@ class MoviePage extends React.Component {
     })
     form.reset()
   }
-
   render() {
-    console.log(this.state.reviews);
-    const formOrLogInAlert = localStorage.loggedIn ? <Form onSubmit={this.formReset}>
-    <Form.Group onChange={this.scoreHandler} controlId="exampleForm.ControlSelect1">
-    <Form.Label>Select your score</Form.Label>
-    <Form.Control  as="select">
-    <option>1</option>
-    <option>2</option>
-    <option>3</option>
-    <option>4</option>
-    <option>5</option>
-    <option>6</option>
-    <option>7</option>
-    <option>8</option>
-    <option>9</option>
-    <option>10</option>
-    </Form.Control>
-    </Form.Group>
-    <Form.Group onChange={this.reviewHandler} id="review_form" controlId="exampleForm.ControlTextarea1">
-      <Form.Label>Create a review below:</Form.Label>
-      <Form.Control as="textarea" rows="3" />
-    </Form.Group>
-    <Button type="submit" variant="info">Submit</Button>
-    </Form>
-    : <Alert variant={"warning"}> Please log in to rate and review this movie </Alert>
 
-    const source = `http://image.tmdb.org/t/p/w342/${this.props.selectedMovie.movie_img}`
+    function alreadyReviewed(array){
+      let reviewed = false
+      array.forEach(function(review){
+        if(review.username===localStorage.username)reviewed = true
+      })
+      return reviewed
+    }
+
+    console.log(alreadyReviewed(this.state.currentReviews));
+
+    const formOrLogInAlert= localStorage.loggedIn && alreadyReviewed(this.state.currentReviews) ?
+      <Form onSubmit={this.formReset}>
+        <Form.Group onChange={this.scoreHandler} controlId="exampleForm.ControlSelect1">
+        <Form.Label>Select your score</Form.Label>
+        <Form.Control  as="select">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+        <option>10</option>
+        </Form.Control>
+        </Form.Group>
+        <Form.Group onChange={this.reviewHandler} id="review_form" controlId="exampleForm.ControlTextarea1">
+          <Form.Label>Create a review below:</Form.Label>
+          <Form.Control as="textarea" rows="3" />
+        </Form.Group>
+        <Button type="submit" variant="info">Submit</Button>
+      </Form>: <Alert variant={"warning"}> Please log in to rate and review this movie </Alert>
+
+
+    const posterSource = `http://image.tmdb.org/t/p/w342/${this.props.selectedMovie.movie_img}`
+
     return(
 
       <Container fluid>
         <Row>
           <Col sm="3">
-            <Image src={source} rounded />
+            <Image src={posterSource} rounded />
           </Col>
           <Col >
             <h1>{this.props.selectedMovie.title}</h1>
