@@ -18,7 +18,7 @@ const ReviewContainer = props => {
   return(
     <Container fluid>
       <Row>
-          {reviews}
+        {reviews}
       </Row>
     </Container>
   )
