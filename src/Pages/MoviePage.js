@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Row, Col, Image, Button, Form, Alert } from 'react-bootstrap'
+import { Container, Row, Col, Image, Button, Form, Alert, Card } from 'react-bootstrap'
 import ReviewContainer from '../Components/ReviewContainer'
 
 class MoviePage extends React.Component {
@@ -22,6 +22,10 @@ class MoviePage extends React.Component {
     this.setState({
       score: e.target.value
     })
+  }
+
+  editHandler = (e) => {
+    console.log("edit clicked");
   }
 
   componentDidMount(){
@@ -65,43 +69,41 @@ class MoviePage extends React.Component {
   }
   render() {
 
-    function alreadyReviewed(array){
+    function alreadyReviewed(){
       let reviewed = false
-      array.forEach(function(review){
+      this.state.currentReviews.forEach(function(review){
         if(review.username===localStorage.username)reviewed = true
       })
       return reviewed
     }
 
+    // What the movie screen will show depending on loggedin and/or movie reviewed
     let formOrLogInAlert
 
-    if(localStorage.loggedIn && alreadyReviewed(this.state.currentReviews)){
+    let myReview = this.state.currentReviews.filter(review => review.username === localStorage.username)
+
+    const editButton = <Button variant="info" size="sm" id="edit_button" onClick={this.editHandler}>Edit</Button>
+
+    if(localStorage.loggedIn && alreadyReviewed()){
       formOrLogInAlert =
-      <Form onSubmit={this.formReset}>
-        <Form.Group onChange={this.scoreHandler} controlId="exampleForm.ControlSelect1">
-        <Form.Label>Select your score</Form.Label>
-        <Form.Control  as="select">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-        <option>6</option>
-        <option>7</option>
-        <option>8</option>
-        <option>9</option>
-        <option>10</option>
-        </Form.Control>
-        </Form.Group>
-        <Form.Group onChange={this.reviewHandler} id="review_form" controlId="exampleForm.ControlTextarea1">
-          <Form.Label>Edit your review below:</Form.Label>
-          <Form.Control as="textarea" rows="3" />
-        </Form.Group>
-        <Button type="submit" variant="info">Submit</Button>
-      </Form>
+        <Container>
+          <h1>Your review:</h1>
+          <Card bg="secondary" text="white">
+            <Card.Header>
+              {myReview[0].username}
+              {editButton}
+            </Card.Header>
+            <Card.Body>
+              <Card.Title>Score:{myReview[0].r_score}/10</Card.Title>
+              <Card.Text>
+                Review: {myReview[0].r_comment}
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Container>
     } else if (!localStorage.loggedIn){
       formOrLogInAlert = <Alert variant={"warning"}> Please log in to rate and review this movie </Alert>
-    } else if (localStorage.loggedIn && !alreadyReviewed(this.state.currentReviews)){
+    } else if (localStorage.loggedIn && !alreadyReviewed()){
       formOrLogInAlert =
         <Form onSubmit={this.formReset}>
           <Form.Group onChange={this.scoreHandler} controlId="exampleForm.ControlSelect1">

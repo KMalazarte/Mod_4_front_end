@@ -35,8 +35,8 @@ const MainPage = props => {
     return(
       <Container className="bg" fluid>
         <MovieContainer
-        movies={movies}
-        clickHandler={clickHandler}
+          movies={movies}
+          clickHandler={clickHandler}
         />
       </Container>
     )
@@ -44,12 +44,12 @@ const MainPage = props => {
     return(
       <Container fluid>
         <MoviePage
-        selectedMovie={selectedMovie}
+          selectedMovie={selectedMovie}
         />
       </Container>
     )
-  } // else
+  }
 
-} //class MoviePage extends
+} 
 
 export default MainPage
