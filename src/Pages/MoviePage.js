@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Row, Col, Image, Button, Form, Alert, Card } from 'react-bootstrap'
+import { Container, Row, Col, Image, Button, Form, Alert, Card, Modal } from 'react-bootstrap'
 import ReviewContainer from '../Components/ReviewContainer'
 
 class MoviePage extends React.Component {
@@ -9,7 +9,8 @@ class MoviePage extends React.Component {
     score: "",
     reviews: "",
     newInput: "",
-    currentReviews: []
+    currentReviews: [],
+    show: false
   }
 
   reviewHandler = (e) => {
@@ -24,8 +25,19 @@ class MoviePage extends React.Component {
     })
   }
 
-  editHandler = (e) => {
-    console.log("edit clicked");
+  handleShow = (e) => {
+    let currentReview = this.state.currentReviews.filter(review => review.username === localStorage.username)
+    this.setState({
+      show: true,
+      input: currentReview[0].r_comment,
+      score: parseInt(currentReview[0].r_score)
+    })
+  }
+
+  handleClose = (e) => {
+    this.setState({
+      show: false
+    })
   }
 
   componentDidMount(){
@@ -69,22 +81,25 @@ class MoviePage extends React.Component {
   }
   render() {
 
-    function alreadyReviewed(){
+
+    function alreadyReviewed(array){
       let reviewed = false
-      this.state.currentReviews.forEach(function(review){
+      array.forEach(function(review){
         if(review.username===localStorage.username)reviewed = true
       })
       return reviewed
     }
+
+    let reviewList = this.state.currentReviews
 
     // What the movie screen will show depending on loggedin and/or movie reviewed
     let formOrLogInAlert
 
     let myReview = this.state.currentReviews.filter(review => review.username === localStorage.username)
 
-    const editButton = <Button variant="info" size="sm" id="edit_button" onClick={this.editHandler}>Edit</Button>
+    const editButton = <Button variant="info" size="sm" id="edit_button" data-id={this.props.selectedMovie.id} onClick={this.handleShow}>Edit</Button>
 
-    if(localStorage.loggedIn && alreadyReviewed()){
+    if(localStorage.loggedIn && alreadyReviewed(reviewList)){
       formOrLogInAlert =
         <Container>
           <h1>Your review:</h1>
@@ -103,12 +118,12 @@ class MoviePage extends React.Component {
         </Container>
     } else if (!localStorage.loggedIn){
       formOrLogInAlert = <Alert variant={"warning"}> Please log in to rate and review this movie </Alert>
-    } else if (localStorage.loggedIn && !alreadyReviewed()){
+    } else if (localStorage.loggedIn && !alreadyReviewed(reviewList)){
       formOrLogInAlert =
         <Form onSubmit={this.formReset}>
           <Form.Group onChange={this.scoreHandler} controlId="exampleForm.ControlSelect1">
           <Form.Label>Select your score</Form.Label>
-          <Form.Control  as="select">
+          <Form.Control as="select">
           <option>1</option>
           <option>2</option>
           <option>3</option>
@@ -129,6 +144,44 @@ class MoviePage extends React.Component {
         </Form>
     }
 
+    let editModal=
+      <Modal size="lg" show={this.state.show} onHide={this.handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit your review below:</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={this.formReset}>
+            <Form.Group onChange={this.scoreHandler} controlId="exampleForm.ControlSelect1" >
+            <Form.Label>Select your score</Form.Label>
+            <Form.Control as="select" defaultValue={this.state.score}>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+            </Form.Control>
+            </Form.Group>
+            <Form.Group onChange={this.reviewHandler} id="review_form" controlId="exampleForm.ControlTextarea1" >
+              <Form.Label>Create a review below:</Form.Label>
+              <Form.Control as="textarea" rows="3" defaultValue={this.state.input}/>
+            </Form.Group>
+            <Button type="submit" variant="info">Submit</Button>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={this.handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={this.handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
     const posterSource = `http://image.tmdb.org/t/p/w342/${this.props.selectedMovie.movie_img}`
 
@@ -143,6 +196,7 @@ class MoviePage extends React.Component {
             <h2>Avg Score: {this.props.selectedMovie.avg_score}</h2>
             <p>Overview: <br/> {this.props.selectedMovie.description}</p>
             {formOrLogInAlert}
+            {editModal}
             <h1>Reviews:</h1>
             <ReviewContainer
               score={this.state.newScore}
