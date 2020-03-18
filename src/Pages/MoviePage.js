@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Row, Col, Image, Button, Form, Alert } from 'react-bootstrap'
+import { Container, Row, Col, Image, Button, Form, Alert, Card, Modal } from 'react-bootstrap'
 import ReviewContainer from '../Components/ReviewContainer'
 
 class MoviePage extends React.Component {
@@ -9,7 +9,9 @@ class MoviePage extends React.Component {
     score: "",
     reviews: "",
     newInput: "",
-    currentReviews: []
+    currentReviews: [],
+    show: false,
+    reviewId:0
   }
 
   reviewHandler = (e) => {
@@ -21,6 +23,22 @@ class MoviePage extends React.Component {
   scoreHandler = (e) => {
     this.setState({
       score: e.target.value
+    })
+  }
+
+  handleShow = (e) => {
+    let currentReview = this.state.currentReviews.filter(review => review.username === localStorage.username)
+    this.setState({
+      show: true,
+      input: currentReview[0].r_comment,
+      score: parseInt(currentReview[0].r_score),
+      reviewId: currentReview[0].id
+    })
+  }
+
+  handleClose = (e) => {
+    this.setState({
+      show: false
     })
   }
 
@@ -63,6 +81,36 @@ class MoviePage extends React.Component {
     })
     form.reset()
   }
+
+  editFormSubmitHandler = (e) => {
+
+    let reviewObject= {r_comment: this.state.input, r_score: this.state.score, username: localStorage.username}
+
+    let notMyReview = this.state.currentReviews.filter((review) => {
+      return parseInt(e.currentTarget.id) !== review.id
+    })
+
+    e.preventDefault()
+
+    this.setState({
+      reviews: this.state.input,
+      currentReviews: [...notMyReview, reviewObject]
+    })
+
+    fetch(`http://localhost:3000/review/${e.target.id}`, {
+      method: 'PATCH',
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        r_comment: this.state.input,
+        r_score: this.state.score
+      })
+    })
+    this.handleClose()
+  }
+
   render() {
 
     function alreadyReviewed(array){
@@ -73,37 +121,98 @@ class MoviePage extends React.Component {
       return reviewed
     }
 
-    console.log(alreadyReviewed(this.state.currentReviews));
+    let reviewList = this.state.currentReviews
 
-    const formOrLogInAlert= localStorage.loggedIn && alreadyReviewed(this.state.currentReviews) ?
-      <Form onSubmit={this.formReset}>
-        <Form.Group onChange={this.scoreHandler} controlId="exampleForm.ControlSelect1">
-        <Form.Label>Select your score</Form.Label>
-        <Form.Control  as="select">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-        <option>6</option>
-        <option>7</option>
-        <option>8</option>
-        <option>9</option>
-        <option>10</option>
-        </Form.Control>
-        </Form.Group>
-        <Form.Group onChange={this.reviewHandler} id="review_form" controlId="exampleForm.ControlTextarea1">
-          <Form.Label>Create a review below:</Form.Label>
-          <Form.Control as="textarea" rows="3" />
-        </Form.Group>
-        <Button type="submit" variant="info">Submit</Button>
-      </Form>: <Alert variant={"warning"}> Please log in to rate and review this movie </Alert>
+    // What the movie screen will show depending on loggedin and/or movie reviewed
+    let formOrLogInAlert
 
+    let myReview = this.state.currentReviews.filter(review => review.username === localStorage.username)
+
+
+    const editButton = <Button variant="info" size="sm" id="edit_button" data-id={this.props.selectedMovie.id} onClick={this.handleShow}>Edit</Button>
+
+    if(localStorage.loggedIn && alreadyReviewed(reviewList)){
+      formOrLogInAlert =
+        <Container>
+          <h1>Your review:</h1>
+          <Card bg="secondary" text="white">
+            <Card.Header>
+              {myReview[0].username}
+              {editButton}
+            </Card.Header>
+            <Card.Body>
+              <Card.Title>Score:{myReview[0].r_score}/10</Card.Title>
+              <Card.Text>
+                Review: {myReview[0].r_comment}
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Container>
+    } else if (!localStorage.loggedIn){
+      formOrLogInAlert = <Alert variant={"warning"}> Please log in to rate and review this movie </Alert>
+    } else if (localStorage.loggedIn && !alreadyReviewed(reviewList)){
+      formOrLogInAlert =
+        <Form onSubmit={this.formReset}>
+          <Form.Group onChange={this.scoreHandler} controlId="exampleForm.ControlSelect1">
+          <Form.Label>Select your score</Form.Label>
+          <Form.Control as="select">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+          <option>8</option>
+          <option>9</option>
+          <option>10</option>
+          </Form.Control>
+          </Form.Group>
+          <Form.Group onChange={this.reviewHandler} id="review_form" controlId="exampleForm.ControlTextarea1">
+            <Form.Label>Create a review below:</Form.Label>
+            <Form.Control as="textarea" rows="3" />
+          </Form.Group>
+          <Button type="submit" variant="info">Submit</Button>
+        </Form>
+    }
+
+    let editModal=
+      <Modal size="lg" show={this.state.show} onHide={this.handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit your review below:</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form id={this.state.reviewId} onSubmit={this.editFormSubmitHandler}>
+            <Form.Group onChange={this.scoreHandler} controlId="exampleForm.ControlSelect1" >
+            <Form.Label>Select your score</Form.Label>
+            <Form.Control as="select" defaultValue={this.state.score}>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+            </Form.Control>
+            </Form.Group>
+            <Form.Group onChange={this.reviewHandler} id="review_form" controlId="exampleForm.ControlTextarea1" >
+              <Form.Label>Create a review below:</Form.Label>
+              <Form.Control as="textarea" rows="3" defaultValue={this.state.input}/>
+            </Form.Group>
+            <Button type="submit" variant="info">Submit</Button>
+            <Button variant="secondary" onClick={this.handleClose}>
+              Cancel
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
 
     const posterSource = `http://image.tmdb.org/t/p/w342/${this.props.selectedMovie.movie_img}`
 
     return(
-
       <Container fluid>
         <Row>
           <Col sm="3">
@@ -114,6 +223,7 @@ class MoviePage extends React.Component {
             <h2>Avg Score: {this.props.selectedMovie.avg_score}</h2>
             <p>Overview: <br/> {this.props.selectedMovie.description}</p>
             {formOrLogInAlert}
+            {editModal}
             <h1>Reviews:</h1>
             <ReviewContainer
               score={this.state.newScore}
