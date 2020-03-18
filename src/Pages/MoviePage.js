@@ -10,7 +10,8 @@ class MoviePage extends React.Component {
     reviews: "",
     newInput: "",
     currentReviews: [],
-    show: false
+    show: false,
+    reviewId:0
   }
 
   reviewHandler = (e) => {
@@ -30,7 +31,8 @@ class MoviePage extends React.Component {
     this.setState({
       show: true,
       input: currentReview[0].r_comment,
-      score: parseInt(currentReview[0].r_score)
+      score: parseInt(currentReview[0].r_score),
+      reviewId: currentReview[0].id
     })
   }
 
@@ -79,8 +81,37 @@ class MoviePage extends React.Component {
     })
     form.reset()
   }
-  render() {
 
+  editFormSubmitHandler = (e) => {
+
+    let reviewObject= {r_comment: this.state.input, r_score: this.state.score, username: localStorage.username}
+
+    let notMyReview = this.state.currentReviews.filter((review) => {
+      return parseInt(e.currentTarget.id) !== review.id
+    })
+
+    e.preventDefault()
+
+    this.setState({
+      reviews: this.state.input,
+      currentReviews: [...notMyReview, reviewObject]
+    })
+
+    fetch(`http://localhost:3000/review/${e.target.id}`, {
+      method: 'PATCH',
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        r_comment: this.state.input,
+        r_score: this.state.score
+      })
+    })
+    this.handleClose()
+  }
+
+  render() {
 
     function alreadyReviewed(array){
       let reviewed = false
@@ -96,6 +127,7 @@ class MoviePage extends React.Component {
     let formOrLogInAlert
 
     let myReview = this.state.currentReviews.filter(review => review.username === localStorage.username)
+
 
     const editButton = <Button variant="info" size="sm" id="edit_button" data-id={this.props.selectedMovie.id} onClick={this.handleShow}>Edit</Button>
 
@@ -150,7 +182,7 @@ class MoviePage extends React.Component {
           <Modal.Title>Edit your review below:</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={this.formReset}>
+          <Form id={this.state.reviewId} onSubmit={this.editFormSubmitHandler}>
             <Form.Group onChange={this.scoreHandler} controlId="exampleForm.ControlSelect1" >
             <Form.Label>Select your score</Form.Label>
             <Form.Control as="select" defaultValue={this.state.score}>
@@ -171,16 +203,11 @@ class MoviePage extends React.Component {
               <Form.Control as="textarea" rows="3" defaultValue={this.state.input}/>
             </Form.Group>
             <Button type="submit" variant="info">Submit</Button>
+            <Button variant="secondary" onClick={this.handleClose}>
+              Cancel
+            </Button>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={this.handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={this.handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
       </Modal>
 
     const posterSource = `http://image.tmdb.org/t/p/w342/${this.props.selectedMovie.movie_img}`
