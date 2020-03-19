@@ -1,5 +1,6 @@
 import React from 'react';
-import { Form } from 'react-bootstrap'
+import { Form } from 'react-bootstrap';
+import { Redirect } from "react-router-dom"
 
 
 class LoginPage extends React.Component{
@@ -7,7 +8,8 @@ class LoginPage extends React.Component{
   state={
     username: '',
     password: '',
-    token: ''
+    token: '',
+    redirect: null
   }
 
   handleChange = (event) => {
@@ -19,36 +21,42 @@ class LoginPage extends React.Component{
   handleLogin = (event) => {
     event.preventDefault()
 
-    // login using a POST request
-  fetch('http://localhost:3000/login', {
-    method: 'POST',
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json"
-    },
-    body: JSON.stringify({
-      user: {
-        username: this.state.username,
-        password: this.state.password
-      }
+      // login using a POST request
+    fetch('http://localhost:3000/login', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        user: {
+          username: this.state.username,
+          password: this.state.password
+        }
+      })
     })
-  })
-  .then(r => r.json())
-  .then(data => {
-    localStorage.setItem('token', data.jwt)
-    localStorage.setItem('user_id', data.user.id)
-    localStorage.setItem('username', data.user.username)
-    localStorage.setItem('loggedIn', true)
-  })
-  this.props.logIn()
+    .then(r => r.json())
+    .then(data => {
+      localStorage.setItem('token', data.jwt)
+      localStorage.setItem('user_id', data.user.id)
+      localStorage.setItem('username', data.user.username)
+      localStorage.setItem('loggedIn', true)
+    })
+    this.props.logIn()
+
+    this.setState({
+      redirect: "/user"
+    });
   }
 
   render(){
+
+    if (this.state.redirect) {
+      return <Redirect push to={this.state.redirect} />
+    }
     const logInAlert = localStorage.loggedIn == "true" ? <h1> Logged In </h1> : console.log('Logged out')
 
     const logInBtn =  localStorage.loggedIn == "true" ? <button onClick={this.props.logOut}>Log Out</button> : <input type="submit" value="Log In" />
-
-    console.log(this.props.loggedIn)
 
     return(
       <div>

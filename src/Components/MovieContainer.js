@@ -4,7 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 const MovieContainer = props => {
 
-  const movieCards = props.movies[0].map(movie =>
+  const movieCards = props.movies.map(movie =>
     <Col sm="4">
       <MovieCard
         key={movie.title}

@@ -5,7 +5,7 @@ import UserPageReviewCard from "./UserPageReviewCard"
 
 const UserReviews = props => {
 
-  const reviewCards = () => props.userReviews[0].map(review =>
+  const reviewCards = () => props.userReviews.map(review =>
     <Col md="3">
       <UserPageReviewCard
         key={review.id}

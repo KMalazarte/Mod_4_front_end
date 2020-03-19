@@ -27,7 +27,7 @@ const MainPage = props => {
   // }
 
   const clickHandler = (e) => {
-    let clickedMovie = movies[0].find(movie => movie.title === e.currentTarget.id)
+    let clickedMovie = movies.find(movie => movie.title === e.currentTarget.id)
     setSelectedMovie(clickedMovie)
   }
 
@@ -50,6 +50,6 @@ const MainPage = props => {
     )
   }
 
-} 
+}
 
 export default MainPage
