@@ -1,8 +1,9 @@
 import React from 'react'
-import { Navbar, Nav, Form, FormControl, Button, Container } from 'react-bootstrap'
+import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap'
+import { Link } from 'react-router-dom';
 
 const NavBar = props => {
-
+  
   let loggedIn
 
   if(localStorage.loggedIn){
@@ -14,10 +15,6 @@ const NavBar = props => {
         <Nav>
           <Nav.Link onClick={props.logOut}>Logout?</Nav.Link>
         </Nav>
-        <Form inline>
-          <FormControl type="text" placeholder="Type a movie in here" className="mr-sm-2" />
-          <Button variant="outline-success">Search</Button>
-        </Form>
       </>
   } else {
     loggedIn =
@@ -26,11 +23,7 @@ const NavBar = props => {
           <Nav.Link href="/user">Your Reviews</Nav.Link>
         </Nav>
         <Nav>
-        <Nav.Link href="/login">Login</Nav.Link>
-          <Form inline>
-            <FormControl type="text" placeholder="Type a movie in here" className="mr-sm-2" />
-            <Button variant="outline-success">Search</Button>
-          </Form>
+          <Nav.Link href="/login">Login</Nav.Link>
         </Nav>
       </>
   }
@@ -40,6 +33,14 @@ const NavBar = props => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         {loggedIn}
+      <Nav>
+        <Form inline>
+          <FormControl
+            onChange={() => props.searchHandler}
+           type="text" placeholder="Type a movie in here" className="mr-sm-2" />
+          <Button onClick={props.searchSubmitHandler} variant="outline-success">Search</Button>
+        </Form>
+      </Nav>
       </Navbar.Collapse>
     </Navbar>
   )
