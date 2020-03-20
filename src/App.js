@@ -72,10 +72,17 @@ class App extends React.Component {
   }
 
   searchSubmitHandler = (e) => {
-    console.log("submitted", this.state.searchInput);
+    e.preventDefault()
     this.setState({
       searchedMovie: this.state.searchInput,
     })
+  }
+
+  keyPressed = (e) => {
+    e.preventDefault()
+    if (e.key === "Enter") {
+      this.searchSubmitHandler()
+    }
   }
 
   // clickHandler = (e) => {
@@ -103,31 +110,32 @@ class App extends React.Component {
           logOut={this.logOut}
           searchHandler={this.searchHandler}
           searchSubmitHandler={this.searchSubmitHandler}
+          keyPressed={this.keyPressed}
         />
         <Router>
-          <Switch>
-            <Route exact path="/" render={(props) =>
-              <HomePage
-                loggedIn={this.state.loggedIn}
-                searchedMovie={this.state.searchedMovie}
-                clickHandler={this.clickHandler}
-              />}
+        <Switch>
+          <Route exact path="/" render={(props) =>
+            <HomePage
+              loggedIn={this.state.loggedIn}
+              searchedMovie={this.state.searchedMovie}
+              clickHandler={this.clickHandler}
+            />}
+          />
+          <Route path ="/user" component={UserPage}/>
+          <Route path ="/login" render={(props) =>
+          <LoginPage
+              loggedIn={this.state.loggedIn}
+              logOut={this.logOut}
+              logIn={this.logIn}
+              username={this.state.username}
+              password={this.state.password}
+              handleChange={this.handleChange}
             />
-            <Route path ="/user" component={UserPage}/>
-            <Route path ="/login" render={(props) =>
-            <LoginPage
-                loggedIn={this.state.loggedIn}
-                logOut={this.logOut}
-                logIn={this.logIn}
-                username={this.state.username}
-                password={this.state.password}
-                handleChange={this.handleChange}
-              />
-            }/>
-            <Route path ="/movies/:title" component={MoviePage}/>
-            <Route path ="/signup" component={Signup}/>
-            <Route component={NoMatch} />
-          </Switch>
+          }/>
+          <Route path ="/movies/:title" component={MoviePage}/>
+          <Route path ="/signup" component={Signup}/>
+          <Route component={NoMatch} />
+        </Switch>
         </Router>
       </React.Fragment>
     );

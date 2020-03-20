@@ -16,6 +16,29 @@ class MoviePage extends React.Component {
     currentMovie: {}
   }
 
+  spaceTitle = (name) => {
+    let movieTitle = name
+    let spaced = movieTitle.replace(/_/g," ")
+    return spaced
+  }
+
+  componentDidMount(){
+    fetch(`http://localhost:3000/movies/${this.spaceTitle(this.state.match.match.params.title)}/reviews`)
+      .then(response => response.json())
+      .then(reviews =>
+        this.setState({
+          currentReviews: reviews
+        })
+      )
+    fetch(`http://localhost:3000/movies/${this.spaceTitle(this.state.match.match.params.title)}`)
+      .then(response => response.json())
+      .then(movie =>
+        this.setState({
+          currentMovie: movie
+        })
+      )
+  }
+
   reviewHandler = (e) => {
     this.setState({
       input: e.target.value
@@ -44,28 +67,7 @@ class MoviePage extends React.Component {
     })
   }
 
-  spaceTitle = (name) => {
-    let movieTitle = name
-    let spaced = movieTitle.replace(/_/g," ")
-    return spaced
-  }
 
-  componentDidMount(){
-    fetch(`http://localhost:3000/movies/${this.spaceTitle(this.state.match.match.params.title)}/reviews`)
-      .then(response => response.json())
-      .then(reviews =>
-        this.setState({
-          currentReviews: reviews
-        })
-      )
-    fetch(`http://localhost:3000/movies/${this.spaceTitle(this.state.match.match.params.title)}`)
-      .then(response => response.json())
-      .then(movie =>
-        this.setState({
-          currentMovie: movie
-        })
-      )
-  }
 
 
   formReset = (e) => {
@@ -128,8 +130,6 @@ class MoviePage extends React.Component {
   }
 
   render() {
-
-    console.log(this.state.currentMovie.id);
 
     function alreadyReviewed(array){
       let reviewed = false

@@ -5,30 +5,38 @@ import { Link } from 'react-router-dom';
 
 const MovieContainer = props => {
 
+  console.log(props.movies.length);
+
   let fixedTitle = movie => {
     let title = movie.title
     let underscored = title.replace(/ /g,"_")
     return underscored
   }
 
-  const movieCards = props.movies.map(movie =>
-    <Col sm="4">
-      <Link to={`/movies/${fixedTitle(movie)}`} clickHandler={props.clickHandler}>
-        <MovieCard
-          key={movie.title}
-          id={movie.id}
-          movie={movie}
-          reviewClickHandler={props.reviewClickHandler}
-        />
-      </Link>
-      <h5 textAlign="right">{movie.avg_score}/10</h5>
-    </Col>
-  )
+  let movieCards
+
+  if (props.movies.length) {
+    movieCards = props.movies.map(movie =>
+      <Col sm="4">
+        <Link to={`/movies/${fixedTitle(movie)}`}>
+          <MovieCard
+            key={movie.title}
+            id={movie.id}
+            movie={movie}
+            reviewClickHandler={props.reviewClickHandler}
+          />
+        </Link>
+      </Col>
+    )
+  } else {
+    movieCards =
+      <h1> Sorry, no movies match that search </h1>
+  }
 
   return(
     <Container fluid>
       <Row>
-          {movieCards}
+        {movieCards}
       </Row>
     </Container>
   )

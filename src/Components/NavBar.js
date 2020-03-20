@@ -3,11 +3,20 @@ import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 
 const NavBar = props => {
-  
-  let loggedIn
+
+  let loggedInNavBar
+
+  // let keyPressed = (e) => {
+  //   e.preventDefault()
+  //   if (e.key === "Enter") {
+  //     props.searchSubmitHandler()
+  //   }
+  // }
+
+  console.log(props);
 
   if(localStorage.loggedIn){
-    loggedIn =
+    loggedInNavBar =
       <>
         <Nav className="mr-auto">
           <Nav.Link href="/user">{localStorage.username}'s' Reviews</Nav.Link>
@@ -17,7 +26,7 @@ const NavBar = props => {
         </Nav>
       </>
   } else {
-    loggedIn =
+    loggedInNavBar =
       <>
         <Nav className="mr-auto">
           <Nav.Link href="/user">Your Reviews</Nav.Link>
@@ -32,13 +41,16 @@ const NavBar = props => {
       <Navbar.Brand href="/">Movie Reviewer</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        {loggedIn}
+        {loggedInNavBar}
       <Nav>
-        <Form inline>
+        <Form onSubmit={props.searchSubmitHandler} inline>
           <FormControl
-            onChange={() => props.searchHandler}
-           type="text" placeholder="Type a movie in here" className="mr-sm-2" />
-          <Button onClick={props.searchSubmitHandler} variant="outline-success">Search</Button>
+            onChange={props.searchHandler}
+            type="text"
+            placeholder="Type a movie in here"
+            className="mr-sm-2"
+          />
+          <Button type="submit" variant="outline-success">Search</Button>
         </Form>
       </Nav>
       </Navbar.Collapse>

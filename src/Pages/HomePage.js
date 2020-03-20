@@ -11,35 +11,33 @@ const HomePage = props => {
     fetchMovies()
   }, [])
 
-  const [selectedMovie, setSelectedMovie] = useState("")
-
   const [movies, setMovies] = useState([])
 
   let fetchMovies = async () => {
     const fetchData = await fetch(`http://localhost:3000/movies`)
-    const data = await fetchData.json()
+    let data = await fetchData.json()
     setMovies(data)
   }
 
-  if (props.searchedMovie !== ""){
-    let filtered = movies.filter(movie => movie.title.toLowerCase().includes(props.searchedMovie.toLowerCase()))
-    setMovies(filtered)
-  }
+  let filtered =  movies.filter(movie => movie.title.toLowerCase().includes(props.searchedMovie.toLowerCase()))
 
-  const clickHandler = (e) => {
-    let clickedMovie = movies.find(movie => movie.title === e.currentTarget.id)
-    setSelectedMovie(clickedMovie)
-  }
-
+  if (props.searchedMovie){
+    return(
+      <Container className="bg" fluid>
+        <MovieContainer
+          movies={filtered}
+        />
+      </Container>
+    )
+  } else {
     return(
       <Container className="bg" fluid>
         <MovieContainer
           movies={movies}
-          clickHandler={props.clickHandler}
         />
       </Container>
     )
-
+  }
 
 }
 

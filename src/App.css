@@ -5,3 +5,8 @@
 .login{
   float: left
 }
+
+.avg_score{
+  color: gold;
+  text-align: left;
+}
