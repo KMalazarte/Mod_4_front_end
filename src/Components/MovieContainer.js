@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom';
 
 const MovieContainer = props => {
 
-  console.log(props.movies.length);
-
   let fixedTitle = movie => {
     let title = movie.title
     let underscored = title.replace(/ /g,"_")

@@ -4,16 +4,9 @@ import { Link } from 'react-router-dom';
 
 const NavBar = props => {
 
-  let loggedInNavBar
-
-  // let keyPressed = (e) => {
-  //   e.preventDefault()
-  //   if (e.key === "Enter") {
-  //     props.searchSubmitHandler()
-  //   }
-  // }
-
   console.log(props);
+
+  let loggedInNavBar
 
   if(localStorage.loggedIn){
     loggedInNavBar =
