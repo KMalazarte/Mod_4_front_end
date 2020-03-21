@@ -7,8 +7,9 @@ import NavBar from './Components/NavBar';
 import LoginPage from './Pages/LoginPage'
 import Signup from './Pages/SignupPage'
 import MoviePage from './Pages/MoviePage'
-import { Admin, Resource, ListGuesser } from "react-admin";
+import { fetchUtils, Admin, Resource, ListGuesser } from "react-admin";
 import jsonServerProvider from "ra-data-json-server";
+import simpleRestProvider from 'ra-data-simple-rest';
 
 const App = () => {
 
@@ -22,9 +23,47 @@ const App = () => {
 
   const [searchedMovie, setSearchedMovie] = useState('')
 
+  const [movies, setMovies] = useState([])
 
-  const dataProvider =
-  jsonServerProvider("http://localhost:3000/movies")
+  useEffect(() => {
+    fetchMovies()
+  }, [])
+
+  // The X-Total-Count header is missing in the HTTP Response. The jsonServer Data Provider expects responses for lists of resources to contain this header with the total number of results to build the pagination. If you are using CORS, did you declare X-Total-Count in the Access-Control-Expose-Headers header?
+
+  // const fetchJson = (url, options = {}) => {
+  //   if (!options.headers) {
+  //     options.headers = new Headers({ Accept: 'application/json' });
+  //   }
+  //   // add your own headers here
+  //   options.headers.set('X-Total-Count', '30');
+  //   return fetchUtils.fetchJson(url, options);
+  // }
+  //
+  // const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com');
+
+  // let fetchMovies = app.get("/movies", async (req, res) => {
+  //   const total = await Movies.count();
+  //   res.header('Access-Control-Expose-Headers', 'X-Total-Count')
+  //   res.set("x-total-count", total);
+  //   res.send(data);
+  // });
+
+  let fetchUsers = async () => {
+    const fetchData = await fetch(`https://jsonplaceholder.typicode.com/users`)
+    console.log(fetchData
+    );
+    let data = await fetchData.json()
+  }
+
+  const dataProvider = jsonServerProvider('http://localhost:3000');
+
+  let fetchMovies = async () => {
+    // const fetchData = await fetch(`http://localhost:3000/movies`)
+    // console.log(fetchData);
+    // let data = await fetchData.json()
+    // setMovies(data)
+  }
 
   let handleChange = (e) => {
     if(e.target.name==="Username")setUsername(e.target.value)
@@ -102,12 +141,11 @@ const App = () => {
           />}
         />
         <Route path="/user" component={UserPage}/>
-        <Route path="/#" exact render={(props) =>
+        <Route path="/admin" render={(props) =>
           <Admin dataProvider={dataProvider}>
-            <Resource name="movies" list={ListGuesser} />
+            <Resource name="users" list={ListGuesser} />
           </Admin>
-        }
-        />
+        }/>
         <Route path="/login" render={(props) =>
           <LoginPage
             loggedIn={loggedIn}

@@ -10,3 +10,7 @@
   color: gold;
   text-align: left;
 }
+
+.table_cell{
+  vertical-align: middle;
+}

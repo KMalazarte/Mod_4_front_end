@@ -67,9 +67,6 @@ class MoviePage extends React.Component {
     })
   }
 
-
-
-
   formReset = (e) => {
     e.preventDefault()
 
