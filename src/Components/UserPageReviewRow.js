@@ -20,7 +20,11 @@ const UserPageReviewRow = props => {
       <Link to={`/movies/${fixedTitle(fixedTitle(props.title))}`}>
         <td><img src={source}/></td>
       </Link>
-      <td className="table_cell">{props.title}</td>
+      <td className="table_cell">
+        <Link to={`/movies/${fixedTitle(fixedTitle(props.title))}`}>
+          {props.title}
+        </Link>
+      </td>
       <td className="table_cell">{props.score}</td>
       <td className="table_cell">{props.review}</td>
     </tr>

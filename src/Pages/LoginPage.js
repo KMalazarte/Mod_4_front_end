@@ -10,8 +10,6 @@ class LoginPage extends React.Component{
 
   render(){
 
-    console.log(this.props);
-
     const logInAlert = localStorage.loggedIn === "true" ? <h1> Hello, {localStorage.username}! You are logged In </h1> :
     <>
       <a href="/signup">Don't have a login? Click here to signup</a>

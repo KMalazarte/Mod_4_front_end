@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 
 const NavBar = props => {
 
-  console.log(props);
-
   let loggedInNavBar
 
   if(localStorage.loggedIn){
