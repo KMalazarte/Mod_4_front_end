@@ -26,7 +26,7 @@ const App = () => {
 
   const [searchedMovie, setSearchedMovie] = useState('')
 
-  const dataProvider = jsonServerProvider('http://localhost:3000');
+  const dataProvider = jsonServerProvider('https://movie-reviewer-api.herokuapp.com');
 
   let handleChange = (e) => {
     if(e.target.name==="Username")setUsername(e.target.value)
@@ -35,7 +35,7 @@ const App = () => {
 
   let logIn = (e) => {
       // login using a POST request
-    fetch('http://localhost:3000/login', {
+    fetch('https://movie-reviewer-api.herokuapp.com/login', {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",

@@ -5,7 +5,7 @@ import { useHttp } from '../Hooks/http'
 
 const UserPage = () => {
 
-  let userReviews = useHttp(`http://localhost:3000/reviews/${localStorage.user_id}`,[])
+  let userReviews = useHttp(`https://movie-reviewer-api.herokuapp.com/reviews/${localStorage.user_id}`,[])
 
   if (localStorage.loggedIn){
     return(

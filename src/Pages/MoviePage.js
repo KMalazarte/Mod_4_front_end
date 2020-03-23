@@ -24,14 +24,14 @@ class MoviePage extends React.Component {
 
   componentDidMount(){
     // fetch(`http://localhost:3000/movies/${this.spaceTitle(this.state.match.match.params.title)}/reviews`)
-    fetch(`http://localhost:3000/movies/${this.state.match.match.params.id}/reviews`)
+    fetch(`https://movie-reviewer-api.herokuapp.com/movies/${this.state.match.match.params.id}/reviews`)
       .then(response => response.json())
       .then(reviews =>
         this.setState({
           currentReviews: reviews
         })
       )
-    fetch(`http://localhost:3000/movies/${this.state.match.match.params.id}`)
+    fetch(`https://movie-reviewer-api.herokuapp.com/movies/${this.state.match.match.params.id}`)
       .then(response => response.json())
       .then(movie =>
         this.setState({
