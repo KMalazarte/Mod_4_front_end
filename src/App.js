@@ -1,4 +1,4 @@
-import React , { useState } from 'react';
+import React , { useState, useEffect } from 'react';
 import HomePage from './Pages/HomePage';
 import UserPage from './Pages/UserPage';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -25,6 +25,18 @@ const App = () => {
   const [searchInput, setSearchInput] = useState('')
 
   const [searchedMovie, setSearchedMovie] = useState('')
+
+  const [movies, setMovies] = useState([])
+
+  useEffect(() => {
+    fetchMovies()
+  }, [])
+
+  let fetchMovies = async () => {
+    const fetchData = await fetch(`https://movie-reviewer-api.herokuapp.com/movies`)
+    let data = await fetchData.json()
+    setMovies(data)
+  }
 
   const dataProvider = jsonServerProvider('https://movie-reviewer-api.herokuapp.com');
 
@@ -97,6 +109,7 @@ const App = () => {
         <Route exact path="/" render={(props) =>
           <HomePage
             loggedIn={loggedIn}
+            movies={movies}
             searchedMovie={searchedMovie}
           />}
         />
@@ -104,7 +117,6 @@ const App = () => {
         <Route path="/admin" render={(props) =>
           <Admin dataProvider={dataProvider}>
             <Resource name="movies" list={MoviesList} edit={MovieEdit} create={MovieCreate}/>
-            <Resource name="reviews" list={ReviewsList}/>
           </Admin>
         }/>
         <Route path="/login" render={(props) =>

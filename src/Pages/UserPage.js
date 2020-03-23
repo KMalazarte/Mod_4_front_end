@@ -1,11 +1,23 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import UserReviews from '../Components/UserReviews'
 import { Container, Alert } from 'react-bootstrap'
-import { useHttp } from '../Hooks/http'
+// import { useHttp } from '../Hooks/http'
 
 const UserPage = () => {
 
-  let userReviews = useHttp(`https://movie-reviewer-api.herokuapp.com/reviews/${localStorage.user_id}`,[])
+  const [userReviews, setUserReviews] = useState([])
+
+  useEffect(() => {
+    fetchUserReviews()
+  }, [])
+
+  let fetchUserReviews = async () => {
+    const fetchData = await fetch(`https://movie-reviewer-api.herokuapp.com/reviews/${localStorage.user_id}`)
+    let data = await fetchData.json()
+    setUserReviews(data)
+  }
+
+  // let userReviews = useHttp(`https://movie-reviewer-api.herokuapp.com/reviews/${localStorage.user_id}`,[])
 
   if (localStorage.loggedIn){
     return(

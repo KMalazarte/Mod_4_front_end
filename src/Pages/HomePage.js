@@ -5,19 +5,7 @@ import { Container } from 'react-bootstrap'
 
 const HomePage = props => {
 
-  useEffect(() => {
-    fetchMovies()
-  }, [])
-
-  const [movies, setMovies] = useState([])
-
-  let fetchMovies = async () => {
-    const fetchData = await fetch(`https://movie-reviewer-api.herokuapp.com/movies`)
-    let data = await fetchData.json()
-    setMovies(data)
-  }
-
-  let filtered =  movies.filter(movie => movie.title.toLowerCase().includes(props.searchedMovie.toLowerCase()))
+  let filtered =  props.movies.filter(movie => movie.title.toLowerCase().includes(props.searchedMovie.toLowerCase()))
 
   if (props.searchedMovie){
     return(
@@ -31,7 +19,7 @@ const HomePage = props => {
     return(
       <Container className="bg" fluid>
         <MovieContainer
-          movies={movies}
+          movies={props.movies}
         />
       </Container>
     )
