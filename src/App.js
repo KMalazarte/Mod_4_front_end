@@ -125,6 +125,6 @@ const App = () => {
     </React.Fragment>
   )
 
-} //class App extends
+}
 
 export default App;
