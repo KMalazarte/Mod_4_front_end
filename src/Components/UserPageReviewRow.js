@@ -11,17 +11,15 @@ const UserPageReviewRow = props => {
     return underscored
   }
 
-  console.log(props);
-
   const source = `http://image.tmdb.org/t/p/w92/${props.poster}`
 
   const movieRow =
     <tr>
-      <Link to={`/movies/${fixedTitle(fixedTitle(props.title))}`}>
+      <Link to={`/movies/${props.movieId}`}>
         <td><img src={source}/></td>
       </Link>
       <td className="table_cell">
-        <Link to={`/movies/${fixedTitle(fixedTitle(props.title))}`}>
+        <Link to={`/movies/${props.movieId}`}>
           {props.title}
         </Link>
       </td>

@@ -13,6 +13,7 @@ const UserReviews = props => {
         title={review.movie_title}
         score={review.r_score}
         review={review.r_comment}
+        movieId={review.movie_id}
         deleteHandler={props.deleteHandler}
       />
       )

@@ -8,7 +8,11 @@ import LoginPage from './Pages/LoginPage'
 import Signup from './Pages/SignupPage'
 import MoviePage from './Pages/MoviePage'
 import MoviesList from './Components/MoviesList'
-import { fetchUtils, Admin, Resource, ListGuesser } from "react-admin";
+import ReviewsList from './Components/ReviewsList'
+import MovieEdit from './Components/MovieEdit'
+import MovieCreate from './Components/MovieCreate'
+import MyDataProvider from './Components/MyDataProvider'
+import { fetchUtils, Admin, Resource, ListGuesser, EditGuesser} from "react-admin";
 import jsonServerProvider from "ra-data-json-server";
 // import simpleRestProvider from 'ra-data-simple-rest';
 
@@ -104,7 +108,8 @@ const App = () => {
         <Route path="/user" component={UserPage}/>
         <Route path="/admin" render={(props) =>
           <Admin dataProvider={dataProvider}>
-            <Resource name="movies" list={MoviesList}/>
+            <Resource name="movies" list={MoviesList} edit={MovieEdit} create={MovieCreate}/>
+            <Resource name="reviews" list={ReviewsList}/>
           </Admin>
         }/>
         <Route path="/login" render={(props) =>
@@ -117,7 +122,7 @@ const App = () => {
             password={password}
           />
         }/>
-        <Route path="/movies/:title" component={MoviePage}/>
+        <Route path="/movies/:id" component={MoviePage}/>
         <Route path="/signup" component={Signup}/>
         <Route component={NoMatch} />
       </Switch>

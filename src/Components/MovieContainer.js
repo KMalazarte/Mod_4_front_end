@@ -16,7 +16,7 @@ const MovieContainer = props => {
   if (props.movies.length) {
     movieCards = props.movies.map(movie =>
       <Col sm="4">
-        <Link to={`/movies/${fixedTitle(movie)}`}>
+        <Link to={`/movies/${movie.id}`}>
           <MovieCard
             key={movie.title}
             id={movie.id}
