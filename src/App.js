@@ -1,4 +1,4 @@
-import React , { useState } from 'react';
+import React , { useState, useEffect } from 'react';
 import HomePage from './Pages/HomePage';
 import UserPage from './Pages/UserPage';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -8,7 +8,6 @@ import LoginPage from './Pages/LoginPage'
 import Signup from './Pages/SignupPage'
 import MoviePage from './Pages/MoviePage'
 import MoviesList from './Components/MoviesList'
-import ReviewsList from './Components/ReviewsList'
 import MovieEdit from './Components/MovieEdit'
 import MovieCreate from './Components/MovieCreate'
 import { Admin, Resource } from "react-admin";
@@ -26,7 +25,19 @@ const App = () => {
 
   const [searchedMovie, setSearchedMovie] = useState('')
 
-  const dataProvider = jsonServerProvider('http://localhost:3000');
+  const [movies, setMovies] = useState([])
+
+  useEffect(() => {
+    fetchMovies()
+  }, [])
+
+  let fetchMovies = async () => {
+    const fetchData = await fetch(`https://movie-reviewer-api.herokuapp.com/movies`)
+    let data = await fetchData.json()
+    setMovies(data)
+  }
+
+  const dataProvider = jsonServerProvider('https://movie-reviewer-api.herokuapp.com');
 
   let handleChange = (e) => {
     if(e.target.name==="Username")setUsername(e.target.value)
@@ -34,8 +45,9 @@ const App = () => {
   }
 
   let logIn = (e) => {
+    e.preventDefault()
       // login using a POST request
-    fetch('http://localhost:3000/login', {
+    fetch('https://movie-reviewer-api.herokuapp.com/login', {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
@@ -50,11 +62,14 @@ const App = () => {
     })
     .then(r => r.json())
     .then(data => {
+
       localStorage.setItem('token', data.jwt)
       localStorage.setItem('user_id', data.user.id)
       localStorage.setItem('username', data.user.username)
       localStorage.setItem('loggedIn', true)
+      // localStorage.setItem('admin', data.user.admin)
     })
+
 
     alert('Logged In')
 
@@ -97,6 +112,7 @@ const App = () => {
         <Route exact path="/" render={(props) =>
           <HomePage
             loggedIn={loggedIn}
+            movies={movies}
             searchedMovie={searchedMovie}
           />}
         />
@@ -104,7 +120,6 @@ const App = () => {
         <Route path="/admin" render={(props) =>
           <Admin dataProvider={dataProvider}>
             <Resource name="movies" list={MoviesList} edit={MovieEdit} create={MovieCreate}/>
-            <Resource name="reviews" list={ReviewsList}/>
           </Admin>
         }/>
         <Route path="/login" render={(props) =>

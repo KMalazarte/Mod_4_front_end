@@ -4,7 +4,9 @@ import UserPageReviewRow from "./UserPageReviewRow"
 
 const UserReviews = props => {
 
-  const reviewRows = props.userReviews.map(review =>
+  let reviews = props.userReviews
+
+  const reviewRows = reviews.map(review =>
       <UserPageReviewRow
         key={review.id}
         id={review.id}

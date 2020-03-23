@@ -16,22 +16,15 @@ class MoviePage extends React.Component {
     currentMovie: {}
   }
 
-  spaceTitle = (name) => {
-    let movieTitle = name
-    let spaced = movieTitle.replace(/_/g," ")
-    return spaced
-  }
-
   componentDidMount(){
-    // fetch(`http://localhost:3000/movies/${this.spaceTitle(this.state.match.match.params.title)}/reviews`)
-    fetch(`http://localhost:3000/movies/${this.state.match.match.params.id}/reviews`)
+    fetch(`https://movie-reviewer-api.herokuapp.com/movies/${this.state.match.match.params.id}/reviews`)
       .then(response => response.json())
       .then(reviews =>
         this.setState({
           currentReviews: reviews
         })
       )
-    fetch(`http://localhost:3000/movies/${this.state.match.match.params.id}`)
+    fetch(`https://movie-reviewer-api.herokuapp.com/movies/${this.state.match.match.params.id}`)
       .then(response => response.json())
       .then(movie =>
         this.setState({
@@ -79,7 +72,7 @@ class MoviePage extends React.Component {
       currentReviews: [...this.state.currentReviews, reviewObject]
     })
 
-    fetch(`http://localhost:3000/movies/${this.state.currentMovie.id}/reviews`, {
+    fetch(`https://movie-reviewer-api.herokuapp.com/movies/${this.state.currentMovie.id}/reviews`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
@@ -105,7 +98,7 @@ class MoviePage extends React.Component {
     })
 
     console.log("Delete clicked", e.target.id);
-    fetch(`http://localhost:3000/review/${e.target.id}`, {
+    fetch(`https://movie-reviewer-api.herokuapp.com/review/${e.target.id}`, {
       method: 'DELETE'
     }).then(() => {
     }).catch(err => {
@@ -135,7 +128,7 @@ class MoviePage extends React.Component {
       currentReviews: [...notMyReview, reviewObject]
     })
 
-    fetch(`http://localhost:3000/review/${e.target.id}`, {
+    fetch(`https://movie-reviewer-api.herokuapp.com/review/${e.target.id}`, {
       method: 'PATCH',
       headers: {
         "Content-Type": "application/json",
@@ -150,8 +143,6 @@ class MoviePage extends React.Component {
   }
 
   render() {
-
-    console.log(this.state.currentReviews);
 
     function alreadyReviewed(array){
       let reviewed = false
