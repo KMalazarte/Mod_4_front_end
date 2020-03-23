@@ -45,7 +45,6 @@ const App = () => {
   }
 
   let logIn = (e) => {
-    e.preventDefault()
       // login using a POST request
     fetch('https://movie-reviewer-api.herokuapp.com/login', {
       method: 'POST',
@@ -69,7 +68,6 @@ const App = () => {
       localStorage.setItem('loggedIn', true)
       // localStorage.setItem('admin', data.user.admin)
     })
-
 
     alert('Logged In')
 
