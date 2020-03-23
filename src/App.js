@@ -11,7 +11,6 @@ import MoviesList from './Components/MoviesList'
 import ReviewsList from './Components/ReviewsList'
 import MovieEdit from './Components/MovieEdit'
 import MovieCreate from './Components/MovieCreate'
-import MyDataProvider from './Components/MyDataProvider'
 import { fetchUtils, Admin, Resource, ListGuesser, EditGuesser} from "react-admin";
 import jsonServerProvider from "ra-data-json-server";
 // import simpleRestProvider from 'ra-data-simple-rest';
