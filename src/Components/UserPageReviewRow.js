@@ -1,22 +1,14 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
-import { Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const UserPageReviewRow = props => {
-
-  let fixedTitle = title => {
-    let film = title
-    let underscored = film.replace(/ /g,"_")
-    return underscored
-  }
 
   const source = `http://image.tmdb.org/t/p/w92/${props.poster}`
 
   const movieRow =
     <tr>
       <Link to={`/movies/${props.movieId}`}>
-        <td><img src={source}/></td>
+        <td><img src={source} alt=''/></td>
       </Link>
       <td className="table_cell">
         <Link to={`/movies/${props.movieId}`}>

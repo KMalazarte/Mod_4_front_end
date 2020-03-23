@@ -2,8 +2,6 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import MovieContainer from '../Components/MovieContainer'
 import { Container } from 'react-bootstrap'
-import MoviePage from './MoviePage'
-import { useHttp } from '../Hooks/http'
 
 const HomePage = props => {
 

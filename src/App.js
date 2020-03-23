@@ -1,4 +1,4 @@
-import React , { useState, useEffect } from 'react';
+import React , { useState } from 'react';
 import HomePage from './Pages/HomePage';
 import UserPage from './Pages/UserPage';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -11,9 +11,8 @@ import MoviesList from './Components/MoviesList'
 import ReviewsList from './Components/ReviewsList'
 import MovieEdit from './Components/MovieEdit'
 import MovieCreate from './Components/MovieCreate'
-import { fetchUtils, Admin, Resource, ListGuesser, EditGuesser} from "react-admin";
+import { Admin, Resource } from "react-admin";
 import jsonServerProvider from "ra-data-json-server";
-// import simpleRestProvider from 'ra-data-simple-rest';
 
 const App = () => {
 
@@ -26,8 +25,6 @@ const App = () => {
   const [searchInput, setSearchInput] = useState('')
 
   const [searchedMovie, setSearchedMovie] = useState('')
-
-  const [movies, setMovies] = useState([])
 
   const dataProvider = jsonServerProvider('http://localhost:3000');
 
@@ -65,7 +62,6 @@ const App = () => {
   }
 
   let logOut = (e) => {
-    console.log("logging out");
     alert('Logged Out')
     localStorage.clear()
     setLoggedIn(false)
@@ -129,6 +125,6 @@ const App = () => {
     </React.Fragment>
   )
 
-} //class App extends
+}
 
 export default App;
