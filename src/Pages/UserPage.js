@@ -23,7 +23,6 @@ const UserPage = () => {
         <h1> Welcome {localStorage.username}! The movies you have reviewed are listed below </h1>
         <UserReviews
           userReviews={userReviews}
-          deleteHandler={deleteHandler}
         />
       </Container>
     )

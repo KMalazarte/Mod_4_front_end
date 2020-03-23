@@ -9,7 +9,7 @@ class MoviePage extends React.Component {
     score: "",
     reviews: "",
     newInput: "",
-    currentReviews: [],
+    currentReviews:[],
     show: false,
     reviewId:0,
     match: this.props,
@@ -98,6 +98,28 @@ class MoviePage extends React.Component {
     form.reset()
   }
 
+  deleteHandler = (e) => {
+
+    let notMyReview = this.state.currentReviews.filter((review) => {
+      return parseInt(e.target.id) !== review.id
+    })
+
+    console.log("Delete clicked", e.target.id);
+    fetch(`http://localhost:3000/review/${e.target.id}`, {
+      method: 'DELETE'
+    }).then(() => {
+    }).catch(err => {
+      console.error(err)
+    })
+
+    this.setState({
+      show: false,
+      currentReviews: notMyReview
+    })
+
+    alert("Review Deleted")
+  }
+
   editFormSubmitHandler = (e) => {
 
     let reviewObject= {r_comment: this.state.input, r_score: this.state.score, username: localStorage.username}
@@ -129,6 +151,8 @@ class MoviePage extends React.Component {
 
   render() {
 
+    console.log(this.state.currentReviews);
+
     function alreadyReviewed(array){
       let reviewed = false
       array.forEach(function(review){
@@ -144,10 +168,7 @@ class MoviePage extends React.Component {
 
     let myReview = this.state.currentReviews.filter(review => review.username === localStorage.username)
 
-
-    const editButton = <Button variant="info" size="sm" id="edit_button"
-    // data-id={this.state.currentMovie.id}
-    onClick={this.handleShow}>Edit</Button>
+    const editButton = <Button variant="info" size="sm" id="edit_button"onClick={this.handleShow}>Edit/Delete</Button>
 
     if(localStorage.loggedIn && alreadyReviewed(reviewList)){
       formOrLogInAlert =
@@ -221,6 +242,7 @@ class MoviePage extends React.Component {
               <Form.Control as="textarea" rows="3" defaultValue={this.state.input}/>
             </Form.Group>
             <Button type="submit" variant="info">Submit</Button>
+            <Button id={this.state.reviewId} variant="danger" onClick={this.deleteHandler}>Delete</Button>
             <Button variant="secondary" onClick={this.handleClose}>
               Cancel
             </Button>
