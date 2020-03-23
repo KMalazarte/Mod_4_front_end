@@ -11,5 +11,5 @@ export const useHttp = (url, dependencies) => {
         setFetchedData(data)
       })
   }, dependencies)
-  return [fetchedData]
+  return fetchedData
 }

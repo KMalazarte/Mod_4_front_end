@@ -1,28 +1,38 @@
 import React from 'react'
 import { useState } from 'react'
-import { Card, Container, Col, Row } from 'react-bootstrap'
-import UserPageReviewCard from "./UserPageReviewCard"
+import { Card, Container, Table, Col } from 'react-bootstrap'
+import UserPageReviewRow from "./UserPageReviewRow"
 
 const UserReviews = props => {
 
-  const reviewCards = () => props.userReviews[0].map(review =>
-    <Col md="3">
-      <UserPageReviewCard
+  const reviewRows = props.userReviews.map(review =>
+      <UserPageReviewRow
         key={review.id}
         id={review.id}
         poster={review.movie_poster}
         title={review.movie_title}
         score={review.r_score}
         review={review.r_comment}
+        movieId={review.movie_id}
         deleteHandler={props.deleteHandler}
       />
-    </Col>)
+      )
 
     return(
       <Container fluid>
-        <Row>
-          {reviewCards()}
-        </Row>
+        <Table striped hover>
+          <thead>
+            <tr>
+              <th>Poster</th>
+              <th>Movie Title</th>
+              <th>Rating</th>
+              <th>Review</th>
+            </tr>
+          </thead>
+          <tbody>
+            {reviewRows}
+          </tbody>
+          </Table>
       </Container>
     )
 }

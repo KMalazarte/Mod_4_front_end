@@ -1,3 +1,16 @@
 #edit_button {
   float: right;
 }
+
+.login{
+  float: left
+}
+
+.avg_score{
+  color: gold;
+  text-align: left;
+}
+
+/* .table td{
+  vertical-align: middle;
+} */

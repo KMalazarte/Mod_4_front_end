@@ -9,9 +9,35 @@ class MoviePage extends React.Component {
     score: "",
     reviews: "",
     newInput: "",
-    currentReviews: [],
+    currentReviews:[],
     show: false,
-    reviewId:0
+    reviewId:0,
+    match: this.props,
+    currentMovie: {}
+  }
+
+  spaceTitle = (name) => {
+    let movieTitle = name
+    let spaced = movieTitle.replace(/_/g," ")
+    return spaced
+  }
+
+  componentDidMount(){
+    // fetch(`http://localhost:3000/movies/${this.spaceTitle(this.state.match.match.params.title)}/reviews`)
+    fetch(`http://localhost:3000/movies/${this.state.match.match.params.id}/reviews`)
+      .then(response => response.json())
+      .then(reviews =>
+        this.setState({
+          currentReviews: reviews
+        })
+      )
+    fetch(`http://localhost:3000/movies/${this.state.match.match.params.id}`)
+      .then(response => response.json())
+      .then(movie =>
+        this.setState({
+          currentMovie: movie
+        })
+      )
   }
 
   reviewHandler = (e) => {
@@ -42,37 +68,27 @@ class MoviePage extends React.Component {
     })
   }
 
-  componentDidMount(){
-    fetch(`http://localhost:3000/movies/${this.props.selectedMovie.id}/reviews`)
-      .then(response => response.json())
-      .then(reviews =>
-        this.setState({
-          currentReviews: reviews
-        })
-      )
-  }
-
   formReset = (e) => {
     e.preventDefault()
 
     let form = e.target
-    let reviewObject= {movie_id: this.props.selectedMovie.id, r_comment: this.state.input, r_score: this.state.score, username: localStorage.username, movie_title: this.props.title, movie_poster: this.props.movie_img }
+    let reviewObject= {movie_id: this.state.currentMovie.id, r_comment: this.state.input, r_score: this.state.score, username: localStorage.username, movie_title: this.props.title, movie_poster: this.props.movie_img }
 
     this.setState({
       reviews: this.state.input,
       currentReviews: [...this.state.currentReviews, reviewObject]
     })
 
-    fetch(`http://localhost:3000/movies/${this.props.selectedMovie.id}/reviews`, {
+    fetch(`http://localhost:3000/movies/${this.state.currentMovie.id}/reviews`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json"
       },
       body: JSON.stringify({
-        movie_id: this.props.selectedMovie.id,
-        movie_title: this.props.selectedMovie.title,
-        movie_poster: this.props.selectedMovie.movie_img,
+        movie_id: this.state.currentMovie.id,
+        movie_title: this.state.currentMovie.title,
+        movie_poster: this.state.currentMovie.movie_img,
         user_id: localStorage.user_id,
         r_comment: this.state.input,
         r_score: this.state.score,
@@ -80,6 +96,28 @@ class MoviePage extends React.Component {
       })
     })
     form.reset()
+  }
+
+  deleteHandler = (e) => {
+
+    let notMyReview = this.state.currentReviews.filter((review) => {
+      return parseInt(e.target.id) !== review.id
+    })
+
+    console.log("Delete clicked", e.target.id);
+    fetch(`http://localhost:3000/review/${e.target.id}`, {
+      method: 'DELETE'
+    }).then(() => {
+    }).catch(err => {
+      console.error(err)
+    })
+
+    this.setState({
+      show: false,
+      currentReviews: notMyReview
+    })
+
+    alert("Review Deleted")
   }
 
   editFormSubmitHandler = (e) => {
@@ -113,6 +151,8 @@ class MoviePage extends React.Component {
 
   render() {
 
+    console.log(this.state.currentReviews);
+
     function alreadyReviewed(array){
       let reviewed = false
       array.forEach(function(review){
@@ -128,8 +168,7 @@ class MoviePage extends React.Component {
 
     let myReview = this.state.currentReviews.filter(review => review.username === localStorage.username)
 
-
-    const editButton = <Button variant="info" size="sm" id="edit_button" data-id={this.props.selectedMovie.id} onClick={this.handleShow}>Edit</Button>
+    const editButton = <Button variant="info" size="sm" id="edit_button"onClick={this.handleShow}>Edit/Delete</Button>
 
     if(localStorage.loggedIn && alreadyReviewed(reviewList)){
       formOrLogInAlert =
@@ -203,6 +242,7 @@ class MoviePage extends React.Component {
               <Form.Control as="textarea" rows="3" defaultValue={this.state.input}/>
             </Form.Group>
             <Button type="submit" variant="info">Submit</Button>
+            <Button id={this.state.reviewId} variant="danger" onClick={this.deleteHandler}>Delete</Button>
             <Button variant="secondary" onClick={this.handleClose}>
               Cancel
             </Button>
@@ -210,20 +250,20 @@ class MoviePage extends React.Component {
         </Modal.Body>
       </Modal>
 
-    const posterSource = `http://image.tmdb.org/t/p/w342/${this.props.selectedMovie.movie_img}`
+    const posterSource = `http://image.tmdb.org/t/p/w342/${this.state.currentMovie.movie_img}`
 
     return(
       <Container fluid>
         <Row>
           <Col sm="3">
-            <Image src={posterSource} rounded />
+            <Image src= {posterSource} rounded />
           </Col>
           <Col >
-            <h1>{this.props.selectedMovie.title}</h1>
-            <h2>Avg Score: {this.props.selectedMovie.avg_score}</h2>
-            <p>Overview: <br/> {this.props.selectedMovie.description}</p>
-            {formOrLogInAlert}
-            {editModal}
+          <h1>{this.state.currentMovie.title}</h1>
+          <h2>Avg Score: {this.state.currentMovie.avg_score}</h2>
+          <p>Overview: <br/> {this.state.currentMovie.description}</p>
+          {formOrLogInAlert}
+          {editModal}
             <h1>Reviews:</h1>
             <ReviewContainer
               score={this.state.newScore}
