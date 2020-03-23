@@ -12,7 +12,7 @@ const HomePage = props => {
   const [movies, setMovies] = useState([])
 
   let fetchMovies = async () => {
-    const fetchData = await fetch(`https://movie-reviewer-api.herokuapp.com/movies`)
+    const fetchData = await fetch(`http://localhost:3000/movies`)
     let data = await fetchData.json()
     setMovies(data)
   }
