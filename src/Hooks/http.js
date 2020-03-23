@@ -10,6 +10,6 @@ export const useHttp = (url, dependencies) => {
       .then(data =>  {
         setFetchedData(data)
       })
-  }, dependencies)
+  }, [url, dependencies])
   return fetchedData
 }

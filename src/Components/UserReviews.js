@@ -1,6 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
-import { Card, Container, Table, Col } from 'react-bootstrap'
+import { Container, Table } from 'react-bootstrap'
 import UserPageReviewRow from "./UserPageReviewRow"
 
 const UserReviews = props => {
