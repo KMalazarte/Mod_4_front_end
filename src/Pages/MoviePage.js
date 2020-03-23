@@ -144,8 +144,6 @@ class MoviePage extends React.Component {
 
   render() {
 
-    console.log(this.state.match.match.params.id);
-
     function alreadyReviewed(array){
       let reviewed = false
       array.forEach(function(review){

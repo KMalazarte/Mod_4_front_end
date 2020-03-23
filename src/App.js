@@ -8,7 +8,6 @@ import LoginPage from './Pages/LoginPage'
 import Signup from './Pages/SignupPage'
 import MoviePage from './Pages/MoviePage'
 import MoviesList from './Components/MoviesList'
-import ReviewsList from './Components/ReviewsList'
 import MovieEdit from './Components/MovieEdit'
 import MovieCreate from './Components/MovieCreate'
 import { Admin, Resource } from "react-admin";
@@ -46,6 +45,7 @@ const App = () => {
   }
 
   let logIn = (e) => {
+    e.preventDefault()
       // login using a POST request
     fetch('https://movie-reviewer-api.herokuapp.com/login', {
       method: 'POST',
@@ -62,11 +62,14 @@ const App = () => {
     })
     .then(r => r.json())
     .then(data => {
+
       localStorage.setItem('token', data.jwt)
       localStorage.setItem('user_id', data.user.id)
       localStorage.setItem('username', data.user.username)
       localStorage.setItem('loggedIn', true)
+      // localStorage.setItem('admin', data.user.admin)
     })
+
 
     alert('Logged In')
 
