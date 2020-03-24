@@ -37,7 +37,7 @@ const App = () => {
     setMovies(data)
   }
 
-  const dataProvider = jsonServerProvider('https://movie-reviewer-api.herokuapp.com');
+  const dataProvider = jsonServerProvider(`https://movie-reviewer-api.herokuapp.com`);
 
   let handleChange = (e) => {
     if(e.target.name==="Username")setUsername(e.target.value)
@@ -45,9 +45,8 @@ const App = () => {
   }
 
   let logIn = (e) => {
-    e.preventDefault()
       // login using a POST request
-    fetch('https://movie-reviewer-api.herokuapp.com/login', {
+    fetch(`https://movie-reviewer-api.herokuapp.com/login`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
@@ -69,7 +68,6 @@ const App = () => {
       localStorage.setItem('loggedIn', true)
       // localStorage.setItem('admin', data.user.admin)
     })
-
 
     alert('Logged In')
 

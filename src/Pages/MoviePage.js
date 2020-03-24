@@ -97,7 +97,6 @@ class MoviePage extends React.Component {
       return parseInt(e.target.id) !== review.id
     })
 
-    console.log("Delete clicked", e.target.id);
     fetch(`https://movie-reviewer-api.herokuapp.com/review/${e.target.id}`, {
       method: 'DELETE'
     }).then(() => {

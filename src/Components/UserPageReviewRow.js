@@ -23,17 +23,6 @@ const UserPageReviewRow = props => {
   return(
     movieRow
   )
-  // <Link to={`/movies/${fixedTitle(props.title)}`}>
-  // <Card bg="secondary" text="white">
-  // <Card.Header>{props.title}</Card.Header>
-  // <Card.Body>
-  // <Card.Title>Score:{props.score}/10</Card.Title>
-  // <Card.Text>
-  // Review:{props.review}
-  // </Card.Text>
-  // </Card.Body>
-  // </Card>
-  // </Link>
 
 }
 

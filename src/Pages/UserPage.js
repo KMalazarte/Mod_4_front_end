@@ -17,8 +17,6 @@ const UserPage = () => {
     setUserReviews(data)
   }
 
-  // let userReviews = useHttp(`https://movie-reviewer-api.herokuapp.com/reviews/${localStorage.user_id}`,[])
-
   if (localStorage.loggedIn){
     return(
       <Container>
