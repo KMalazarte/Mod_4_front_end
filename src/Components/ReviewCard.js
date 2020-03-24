@@ -2,20 +2,6 @@ import React from 'react'
 import { Card } from 'react-bootstrap'
 
 class ReviewCard extends React.Component {
-  // state = {
-  //   review: []
-  // }
-  //
-  // componentDidMount(){
-  //   fetch("http://localhost:3000/movies/1/reviews")
-  //   .then(response => response.json())
-  //   .then(review =>  {
-  //     // console.log(moviesArr.movies);
-  //     this.setState({
-  //       review
-  //     })
-  //   })
-  // }
 
   render() {
     return(

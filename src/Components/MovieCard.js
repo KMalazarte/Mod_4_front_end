@@ -18,12 +18,3 @@ const MovieCard = props => {
 }
 
 export default MovieCard
-
-
-// <div id={this.props.movie.title} onClick={this.props.clickHandler}>
-// <h1> Title: {this.props.movie.title} </h1>
-// <img src={source} alt=""/>
-// <p>Description: {this.props.movie.description}</p>
-// <p>Average Score: {this.props.movie.avg_score}</p>
-// <button onClick={this.props.reviewClickHandler}>Review Me </button>
-// </div>
