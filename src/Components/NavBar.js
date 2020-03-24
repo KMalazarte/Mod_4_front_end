@@ -5,11 +5,23 @@ const NavBar = props => {
 
   let loggedInNavBar
 
+  let admin
+
+  if(localStorage.admin === "true"){
+    admin =
+      <>
+        <Nav className="mr-auto">
+          <Nav.Link href="/admin">Admin</Nav.Link>
+        </Nav>
+      </>
+  }
+
   if(localStorage.loggedIn){
     loggedInNavBar =
       <>
         <Nav className="mr-auto">
           <Nav.Link href="/user">{localStorage.username}'s' Reviews</Nav.Link>
+          {admin}
         </Nav>
         <Nav>
           <Nav.Link onClick={props.logOut}>Logout?</Nav.Link>
@@ -26,6 +38,9 @@ const NavBar = props => {
         </Nav>
       </>
   }
+
+
+
   return(
     <Navbar bg="dark" variant="dark" expand="lg">
       <Navbar.Brand href="/">Movie Reviewer</Navbar.Brand>
