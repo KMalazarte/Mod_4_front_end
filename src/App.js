@@ -32,12 +32,12 @@ const App = () => {
   }, [])
 
   let fetchMovies = async () => {
-    const fetchData = await fetch(`https://movie-reviewer-api.herokuapp.com/movies`)
+    const fetchData = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/movies`)
     let data = await fetchData.json()
     setMovies(data)
   }
 
-  const dataProvider = jsonServerProvider('https://movie-reviewer-api.herokuapp.com');
+  const dataProvider = jsonServerProvider(`${process.env.REACT_APP_API_ENDPOINT}`);
 
   let handleChange = (e) => {
     if(e.target.name==="Username")setUsername(e.target.value)
@@ -46,7 +46,7 @@ const App = () => {
 
   let logIn = (e) => {
       // login using a POST request
-    fetch('https://movie-reviewer-api.herokuapp.com/login', {
+    fetch(`${process.env.REACT_APP_API_ENDPOINT}/login`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",

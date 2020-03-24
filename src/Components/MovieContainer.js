@@ -5,12 +5,6 @@ import { Link } from 'react-router-dom';
 
 const MovieContainer = props => {
 
-  // let fixedTitle = movie => {
-  //   let title = movie.title
-  //   let underscored = title.replace(/ /g,"_")
-  //   return underscored
-  // }
-
   let movieCards
 
   if (props.movies.length) {

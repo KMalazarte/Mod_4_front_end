@@ -15,7 +15,7 @@ class Signup extends React.Component{
 
   handleSignup = (event) => {
     event.preventDefault()
-    fetch('https://movie-reviewer-api.herokuapp.com/users', {
+    fetch(`${process.env.REACT_APP_API_ENDPOINT}/users`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

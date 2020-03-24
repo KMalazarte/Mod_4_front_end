@@ -17,14 +17,14 @@ class MoviePage extends React.Component {
   }
 
   componentDidMount(){
-    fetch(`https://movie-reviewer-api.herokuapp.com/movies/${this.state.match.match.params.id}/reviews`)
+    fetch(`${process.env.REACT_APP_API_ENDPOINT}/movies/${this.state.match.match.params.id}/reviews`)
       .then(response => response.json())
       .then(reviews =>
         this.setState({
           currentReviews: reviews
         })
       )
-    fetch(`https://movie-reviewer-api.herokuapp.com/movies/${this.state.match.match.params.id}`)
+    fetch(`${process.env.REACT_APP_API_ENDPOINT}/movies/${this.state.match.match.params.id}`)
       .then(response => response.json())
       .then(movie =>
         this.setState({
@@ -72,7 +72,7 @@ class MoviePage extends React.Component {
       currentReviews: [...this.state.currentReviews, reviewObject]
     })
 
-    fetch(`https://movie-reviewer-api.herokuapp.com/movies/${this.state.currentMovie.id}/reviews`, {
+    fetch(`${process.env.REACT_APP_API_ENDPOINT}/movies/${this.state.currentMovie.id}/reviews`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
@@ -96,9 +96,8 @@ class MoviePage extends React.Component {
     let notMyReview = this.state.currentReviews.filter((review) => {
       return parseInt(e.target.id) !== review.id
     })
-
-    console.log("Delete clicked", e.target.id);
-    fetch(`https://movie-reviewer-api.herokuapp.com/review/${e.target.id}`, {
+    
+    fetch(`${process.env.REACT_APP_API_ENDPOINT}/review/${e.target.id}`, {
       method: 'DELETE'
     }).then(() => {
     }).catch(err => {
@@ -128,7 +127,7 @@ class MoviePage extends React.Component {
       currentReviews: [...notMyReview, reviewObject]
     })
 
-    fetch(`https://movie-reviewer-api.herokuapp.com/review/${e.target.id}`, {
+    fetch(`${process.env.REACT_APP_API_ENDPOINT}/review/${e.target.id}`, {
       method: 'PATCH',
       headers: {
         "Content-Type": "application/json",
