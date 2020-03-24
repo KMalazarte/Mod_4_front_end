@@ -8,6 +8,7 @@ const UserReviews = props => {
 
   let create_slug = (review) => {
     let replaceSpaces = review.movie_title.trim().replace(/\s+/g, '-');
+    // eslint-disable-next-line
     let slug = replaceSpaces.toLowerCase().replace(/[^a-zA-Z0-9\-]/g,'')
     return slug
   }

@@ -61,12 +61,11 @@ const App = () => {
     })
     .then(r => r.json())
     .then(data => {
-
       localStorage.setItem('token', data.jwt)
       localStorage.setItem('user_id', data.user.id)
       localStorage.setItem('username', data.user.username)
       localStorage.setItem('loggedIn', true)
-      // localStorage.setItem('admin', data.user.admin)
+      localStorage.setItem('admin', data.admin)
     })
 
     alert('Logged In')
