@@ -34,7 +34,3 @@ const MovieContainer = props => {
 }
 
 export default MovieContainer
-
-// <div>
-// {movieCards}
-// </div>
