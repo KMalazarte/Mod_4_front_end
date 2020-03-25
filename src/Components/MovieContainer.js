@@ -20,8 +20,7 @@ const MovieContainer = props => {
       </Col>
     )
   } else {
-    movieCards =
-      <h1> Sorry, no movies match that search </h1>
+    movieCards = <h1> Sorry, no movies match that search </h1>
   }
 
   return(
