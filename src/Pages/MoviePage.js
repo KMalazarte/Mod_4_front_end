@@ -16,21 +16,31 @@ class MoviePage extends React.Component {
     currentMovie: {}
   }
 
+
   componentDidMount(){
-    fetch(`https://movie-reviewer-api.herokuapp.com/movies/${this.state.match.match.params.id}/reviews`)
-      .then(response => response.json())
-      .then(reviews =>
-        this.setState({
-          currentReviews: reviews
-        })
-      )
-    fetch(`https://movie-reviewer-api.herokuapp.com/movies/${this.state.match.match.params.id}`)
-      .then(response => response.json())
-      .then(movie =>
-        this.setState({
-          currentMovie: movie
-        })
-      )
+    let loadJson = (url) => {
+    return fetch(url)
+      .then(response => response.json());
+    }
+
+    let loadReviews = (movieId) => {
+      return fetch(`https://movie-reviewer-api.herokuapp.com/movies/${movieId}/reviews`)
+        .then(response => response.json())
+        .then(reviews =>
+          this.setState({
+            currentReviews: reviews
+          })
+        )
+    }
+
+    loadJson(`https://movie-reviewer-api.herokuapp.com/movies/${this.state.match.match.params.id}`)
+    .then(movie =>
+      this.setState({
+        currentMovie: movie
+      }, () => {
+      loadReviews(movie.id)
+      })
+    )
   }
 
   reviewHandler = (e) => {

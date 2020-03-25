@@ -15,7 +15,6 @@ const MovieContainer = props => {
             key={movie.title}
             id={movie.id}
             movie={movie}
-            reviewClickHandler={props.reviewClickHandler}
           />
         </Link>
       </Col>

@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 
 const UserPageReviewRow = props => {
 
-  console.log(props.slug);
-
   const source = `http://image.tmdb.org/t/p/w92/${props.poster}`
 
   const movieRow =
