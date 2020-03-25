@@ -39,8 +39,6 @@ const NavBar = props => {
       </>
   }
 
-
-
   return(
     <Navbar bg="dark" variant="dark" expand="lg">
       <Navbar.Brand href="/">Movie Reviewer</Navbar.Brand>
