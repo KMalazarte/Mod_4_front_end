@@ -2,7 +2,7 @@ import React from 'react';
 import { List, Datagrid, TextField, DateField, NumberField, EditButton } from 'react-admin';
 
 const MoviesList = props => (
-  <List {...props}>
+  <List {...props} title="List of Movies">
     <Datagrid>
       <TextField source="id" />
       <TextField source="title" />
