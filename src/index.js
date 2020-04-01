@@ -6,6 +6,8 @@ import './App.css'
 import { usePromiseTracker } from "react-promise-tracker"
 import Loader from 'react-loader-spinner';
 
+require('dotenv').config()
+
 const LoadingIndicator = props => {
   const { promiseInProgress } = usePromiseTracker();
   return (

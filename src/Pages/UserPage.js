@@ -12,7 +12,7 @@ const UserPage = () => {
   }, [])
 
   let fetchUserReviews = async () => {
-    const fetchData = await fetch(`https://movie-reviewer-api.herokuapp.com/reviews/${localStorage.user_id}`)
+    const fetchData = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/reviews/${localStorage.user_id}`)
     let data = await fetchData.json()
     setUserReviews(data)
   }
