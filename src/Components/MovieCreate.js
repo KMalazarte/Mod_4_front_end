@@ -1,13 +1,11 @@
 import React from 'react';
 import { Create, SimpleForm, TextInput, NumberInput, DateInput } from 'react-admin';
 
-// const MovieTitle = ({ record }) => {
-//   return <span>Post {record ? `"${record.title}"` : ''}</span>;
-// }
+const movieDefaultValue = { created_at: new Date(), updated_at: new Date() };
 
 const MovieCreate = props => (
-    <Create {...props}>
-      <SimpleForm>
+    <Create {...props} title="Create a Movie">
+      <SimpleForm initialValues={movieDefaultValue}>
         <TextInput source="title" />
         <TextInput multiline source="description" />
         <NumberInput source="avg_score" />

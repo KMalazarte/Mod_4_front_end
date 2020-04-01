@@ -11,9 +11,9 @@ import MoviesList from './Components/MoviesList'
 import MovieEdit from './Components/MovieEdit'
 import MovieCreate from './Components/MovieCreate'
 import { Admin, Resource } from "react-admin";
-import jsonServerProvider from "ra-data-json-server";
+// import jsonServerProvider from "ra-data-json-server";
+import dataProvider from './Components/dataProvider.js';
 import { trackPromise } from "react-promise-tracker";
-
 
 const App = () => {
 
@@ -29,17 +29,20 @@ const App = () => {
 
   const [movies, setMovies] = useState([])
 
+  let myAPI = process.env.REACT_APP_API_ENDPOINT
+
   useEffect(() => {
+
+    let fetchMovies = async () => {
+      const fetchData = await fetch(`${myAPI}/movies`)
+      let data = await fetchData.json()
+      setMovies(data)
+    }
+
     trackPromise(fetchMovies())
-  }, [])
+  }, [myAPI])
 
-  let fetchMovies = async () => {
-    const fetchData = await fetch(`https://movie-reviewer-api.herokuapp.com/movies`)
-    let data = await fetchData.json()
-    setMovies(data)
-  }
-
-  const dataProvider = jsonServerProvider(`https://movie-reviewer-api.herokuapp.com`);
+  // const dataProvider = jsonServerProvider(`${myAPI}`);
 
   let handleChange = (e) => {
     if(e.target.name==="Username")setUsername(e.target.value)
@@ -48,7 +51,7 @@ const App = () => {
 
   let logIn = (e) => {
       // login using a POST request
-    fetch(`https://movie-reviewer-api.herokuapp.com/login`, {
+    fetch(`${myAPI}/login`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
