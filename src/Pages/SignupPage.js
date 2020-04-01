@@ -68,7 +68,4 @@ class Signup extends React.Component{
   }
 }
 
-// <input type="text"  name="username" onChange={this.handleChange} />
-// <input type="password" placeholder="Please enter a password" name="password" onChange={this.handleChange} />
-// <input type="submit" value="Signup" />
 export default Signup

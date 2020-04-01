@@ -29,8 +29,10 @@ const App = () => {
 
   const [movies, setMovies] = useState([])
 
+  const [redirect, setRedirect] = useState(false)
+
   let myAPI = process.env.REACT_APP_API_ENDPOINT
-  
+
   useEffect(() => {
 
     let fetchMovies = async () => {
@@ -71,15 +73,20 @@ const App = () => {
       localStorage.setItem('username', data.user.username)
       localStorage.setItem('loggedIn', true)
       localStorage.setItem('admin', data.admin)
+
+      setUsername(data.user.username)
+      alert(`Hi ${localStorage.username}, you are logged in!`)
     })
 
-    alert('Logged In')
 
     setLoggedIn(true)
+    setRedirect(true)
+
   }
 
   let logOut = (e) => {
-    alert('Logged Out')
+    e.preventDefault()
+    alert(`Bye, ${username}. See you next time!`)
     localStorage.clear()
     setLoggedIn(false)
   }
@@ -107,6 +114,7 @@ const App = () => {
         logOut={logOut}
         searchHandler={searchHandler}
         searchSubmitHandler={searchSubmitHandler}
+        username={username}
         keyPressed={keyPressed}
       />
       <Router>
@@ -126,6 +134,7 @@ const App = () => {
         }/>
         <Route path="/login" render={(props) =>
           <LoginPage
+            redirect={redirect}
             loggedIn={loggedIn}
             logOut={logOut}
             logIn={logIn}
