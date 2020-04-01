@@ -1,10 +1,12 @@
 import React from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { Redirect } from "react-router-dom"
 
 class Signup extends React.Component{
   state={
     username: '',
-    password: ''
+    password: '',
+    redirectToReferrer: false
   }
 
   handleChange = (event) => {
@@ -28,34 +30,26 @@ class Signup extends React.Component{
         }
       })
     })
-    .then(r => r.json())
-    .then(r => console.log(r))
-    alert(`Welcome ${this.state.username}`)
+    .then(resp => resp.json())
+    .then(resp => resp.jwt ? resp : false)
+    .then(resp => {
+      if(resp){
+        alert(`Thanks for signing up ${this.state.username}!`)
+        this.setState({
+          redirectToReferrer: true
+        })
+      } else {
+        alert("Sorry that username is already in use, please try again")
+      }
 
+  })
   }
 
-  // <Form>
-  //   <Form.Group controlId="formBasicEmail">
-  //     <Form.Label>Email address</Form.Label>
-  //     <Form.Control type="email" placeholder="Enter email" />
-  //     <Form.Text className="text-muted">
-  //       We'll never share your email with anyone else.
-  //     </Form.Text>
-  //   </Form.Group>
-  //
-  //   <Form.Group controlId="formBasicPassword">
-  //     <Form.Label>Password</Form.Label>
-  //     <Form.Control type="password" placeholder="Password" />
-  //   </Form.Group>
-  //   <Form.Group controlId="formBasicCheckbox">
-  //     <Form.Check type="checkbox" label="Check me out" />
-  //   </Form.Group>
-  //   <Button variant="primary" type="submit">
-  //     Submit
-  //   </Button>
-  // </Form>
-
   render(){
+    const redirectToReferrer = this.state.redirectToReferrer;
+       if (redirectToReferrer === true) {
+           return <Redirect to="/login" />
+       }
     return(
       <Form onSubmit={this.handleSignup}>
         <Form.Group controlId="formBasicEmail">

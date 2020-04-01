@@ -11,8 +11,8 @@ import MoviesList from './Components/MoviesList'
 import MovieEdit from './Components/MovieEdit'
 import MovieCreate from './Components/MovieCreate'
 import { Admin, Resource } from "react-admin";
-// import jsonServerProvider from "ra-data-json-server";
-import dataProvider from './Components/dataProvider.js';
+import jsonServerProvider from "ra-data-json-server";
+// import dataProvider from './Components/dataProvider.js';
 import { trackPromise } from "react-promise-tracker";
 
 const App = () => {
@@ -30,7 +30,7 @@ const App = () => {
   const [movies, setMovies] = useState([])
 
   let myAPI = process.env.REACT_APP_API_ENDPOINT
-
+  
   useEffect(() => {
 
     let fetchMovies = async () => {
@@ -42,7 +42,7 @@ const App = () => {
     trackPromise(fetchMovies())
   }, [myAPI])
 
-  // const dataProvider = jsonServerProvider(`${myAPI}`);
+  const dataProvider = jsonServerProvider(`${myAPI}`);
 
   let handleChange = (e) => {
     if(e.target.name==="Username")setUsername(e.target.value)

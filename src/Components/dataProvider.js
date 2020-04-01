@@ -55,7 +55,7 @@ export default {
 
     update: (resource, params) =>
         httpClient(`${apiUrl}/${resource}/${params.id}`, {
-            method: 'PUT',
+            method: 'PATCH',
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({ data: json })),
 
