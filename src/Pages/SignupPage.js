@@ -41,8 +41,7 @@ class Signup extends React.Component{
       } else {
         alert("Sorry that username is already in use, please try again")
       }
-
-  })
+    })
   }
 
   render(){
@@ -68,7 +67,4 @@ class Signup extends React.Component{
   }
 }
 
-// <input type="text"  name="username" onChange={this.handleChange} />
-// <input type="password" placeholder="Please enter a password" name="password" onChange={this.handleChange} />
-// <input type="submit" value="Signup" />
 export default Signup

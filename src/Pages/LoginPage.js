@@ -1,14 +1,16 @@
 import React from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap'
+import { Redirect } from "react-router-dom"
 
 
 class LoginPage extends React.Component{
 
-  state={
-    redirect: null
-  }
-
   render(){
+
+    const redirectToReferrer = this.props.redirect
+     if (redirectToReferrer === true) {
+       return <Redirect to="/" />
+     }
 
     const logInAlert = localStorage.loggedIn === "true" ? <h1> Hello, {localStorage.username}! You are logged In </h1> :
     <>

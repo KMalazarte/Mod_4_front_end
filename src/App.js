@@ -29,8 +29,10 @@ const App = () => {
 
   const [movies, setMovies] = useState([])
 
+  const [redirect, setRedirect] = useState(false)
+
   let myAPI = process.env.REACT_APP_API_ENDPOINT
-  
+
   useEffect(() => {
 
     let fetchMovies = async () => {
@@ -50,6 +52,7 @@ const App = () => {
   }
 
   let logIn = (e) => {
+    e.preventDefault()
       // login using a POST request
     fetch(`${myAPI}/login`, {
       method: 'POST',
@@ -65,21 +68,30 @@ const App = () => {
       })
     })
     .then(r => r.json())
+    .then(data => data.message ? false : data)
     .then(data => {
-      localStorage.setItem('token', data.jwt)
-      localStorage.setItem('user_id', data.user.id)
-      localStorage.setItem('username', data.user.username)
-      localStorage.setItem('loggedIn', true)
-      localStorage.setItem('admin', data.admin)
+      if(data){
+        localStorage.setItem('token', data.jwt)
+        localStorage.setItem('user_id', data.user.id)
+        localStorage.setItem('username', data.user.username)
+        localStorage.setItem('loggedIn', true)
+        localStorage.setItem('admin', data.admin)
+
+        setUsername(data.user.username)
+        alert(`Hi ${username}, you are logged in!`)
+
+        setLoggedIn(true)
+        setRedirect(true)
+      } else {
+        alert(`Please make sure the username and password you entered are correct`)
+      }
     })
 
-    alert('Logged In')
-
-    setLoggedIn(true)
   }
 
   let logOut = (e) => {
-    alert('Logged Out')
+    e.preventDefault()
+    alert(`Bye, ${username}. See you next time!`)
     localStorage.clear()
     setLoggedIn(false)
   }
@@ -107,6 +119,7 @@ const App = () => {
         logOut={logOut}
         searchHandler={searchHandler}
         searchSubmitHandler={searchSubmitHandler}
+        username={username}
         keyPressed={keyPressed}
       />
       <Router>
@@ -126,6 +139,7 @@ const App = () => {
         }/>
         <Route path="/login" render={(props) =>
           <LoginPage
+            redirect={redirect}
             loggedIn={loggedIn}
             logOut={logOut}
             logIn={logIn}
