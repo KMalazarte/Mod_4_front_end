@@ -41,8 +41,7 @@ class Signup extends React.Component{
       } else {
         alert("Sorry that username is already in use, please try again")
       }
-
-  })
+    })
   }
 
   render(){

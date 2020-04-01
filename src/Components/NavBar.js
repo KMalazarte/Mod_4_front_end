@@ -16,14 +16,11 @@ const NavBar = props => {
       </>
   }
 
-  console.log(props);
-
-
   if(props.loggedIn){
     loggedInNavBar =
       <>
         <Nav className="mr-auto">
-          <Nav.Link href="/user">{props.username}'s' Reviews</Nav.Link>
+          <Nav.Link href="/user">{localStorage.username}'s' Reviews</Nav.Link>
           {admin}
         </Nav>
         <Nav>
