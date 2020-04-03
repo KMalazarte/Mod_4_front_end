@@ -1,4 +1,4 @@
-import React , { useState } from 'react';
+import React from 'react';
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap'
 
 const NavBar = props => {
@@ -20,7 +20,7 @@ const NavBar = props => {
     loggedInNavBar =
       <>
         <Nav className="mr-auto">
-          <Nav.Link href="/user">{localStorage.username}'s' Reviews</Nav.Link>
+          <Nav.Link href="/user">{localStorage.username}'s Reviews</Nav.Link>
           {admin}
         </Nav>
         <Nav>
