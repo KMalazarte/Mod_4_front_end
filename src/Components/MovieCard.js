@@ -1,5 +1,6 @@
 import React from 'react'
 import { Card, Col } from 'react-bootstrap'
+import { Link } from 'react-router-dom';
 
 const MovieCard = props => {
 
@@ -8,7 +9,9 @@ const MovieCard = props => {
   return(
     <Col>
       <Card key={props.movie.title} id={props.movie.id} style={{ width: '18rem' }}>
-        <Card.Img variant="top" src={source} />
+        <Link to={`/movies/${props.movie.slug}`}>
+          <Card.Img variant="top" src={source} />
+        </Link>
       </Card>
       <h3 className="avg_score">{props.movie.avg_score}/10</h3>
     </Col>

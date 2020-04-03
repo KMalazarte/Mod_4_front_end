@@ -19,8 +19,8 @@ const UserPage = () => {
 
   if (localStorage.loggedIn){
     return(
-      <Container>
-        <h1> Welcome {localStorage.username}! The movies you have reviewed are listed below </h1>
+      <Container fluid className="bg">
+        <h1 id="user-page-header"> Welcome {localStorage.username}! The movies you have reviewed are listed below </h1>
         <UserReviews
           userReviews={userReviews}
         />

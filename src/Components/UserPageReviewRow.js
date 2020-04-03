@@ -7,9 +7,11 @@ const UserPageReviewRow = props => {
 
   const movieRow =
     <tr>
-      <Link to={`/movies/${props.slug}`}>
-        <td><img src={source} alt=''/></td>
+      <td>
+        <Link to={`/movies/${props.slug}`}>
+          <img src={source} alt=''/>
       </Link>
+      </td>
       <td className="table_cell">
         <Link to={`/movies/${props.slug}`}>
           {props.title}

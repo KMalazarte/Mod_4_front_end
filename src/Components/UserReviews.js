@@ -31,7 +31,7 @@ const UserReviews = props => {
     <Container fluid>
       <Table striped hover>
         <thead>
-          <tr>
+          <tr className="tr_header">
             <th>Poster</th>
             <th>Movie Title</th>
             <th>Rating</th>

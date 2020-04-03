@@ -10,3 +10,17 @@
   color: gold;
   text-align: left;
 }
+
+#user-page-header{
+  color: white;
+  text-align: center
+}
+
+.tr_header{
+  color: white;
+  font-weight: bold
+}
+
+.table_cell{
+  color: white
+}
