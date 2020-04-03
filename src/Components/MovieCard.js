@@ -8,12 +8,12 @@ const MovieCard = props => {
 
   return(
     <Col>
-      <Card key={props.movie.title} id={props.movie.id} style={{ width: '18rem' }}>
+      <Card key={props.movie.title} id={props.movie.id} className="movie-card">
         <Link to={`/movies/${props.movie.slug}`}>
           <Card.Img variant="top" src={source} />
         </Link>
       </Card>
-      <h3 className="avg_score">{props.movie.avg_score}/10</h3>
+      <div className="card_title">{props.movie.title}</div><div className="avg_score">{props.movie.avg_score}/10</div>
     </Col>
 
   )

@@ -6,9 +6,19 @@
   float: left
 }
 
+.card_title{
+  color: white;
+  text-align: center;
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold
+}
+
 .avg_score{
-  color: gold;
-  text-align: left;
+  color: yellow;
+  text-align: center;
+  font-size: 1.1rem;
+  margin-bottom: 1rem
 }
 
 #user-page-header{
@@ -22,5 +32,13 @@
 }
 
 .table_cell{
-  color: white
+  color: white;
+  align-self: center
+}
+
+.movie-card{
+  width: 20rem;
+  margin: 0 auto; /* Added */
+  float: none; /* Added */
+  margin-bottom: 10px; /* Added */
 }

@@ -1,7 +1,6 @@
 import React from 'react'
 import MovieCard from './MovieCard';
 import { Container, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 
 const MovieContainer = props => {
 
