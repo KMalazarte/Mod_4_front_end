@@ -172,7 +172,7 @@ class MoviePage extends React.Component {
     if(localStorage.loggedIn && alreadyReviewed(reviewList)){
       formOrLogInAlert =
         <Container>
-          <h1>Your review:</h1>
+          <h1 className="label">Your review:</h1>
           <Card bg="secondary" text="white">
             <Card.Header>
               {myReview[0].username}
@@ -192,7 +192,7 @@ class MoviePage extends React.Component {
       formOrLogInAlert =
         <Form onSubmit={this.formReset}>
           <Form.Group onChange={this.scoreHandler} controlId="exampleForm.ControlSelect1">
-          <Form.Label>Select your score</Form.Label>
+          <Form.Label className="label">Select your score</Form.Label>
           <Form.Control as="select">
           <option>1</option>
           <option>2</option>
@@ -207,7 +207,7 @@ class MoviePage extends React.Component {
           </Form.Control>
           </Form.Group>
           <Form.Group onChange={this.reviewHandler} id="review_form" controlId="exampleForm.ControlTextarea1">
-            <Form.Label>Create a review below:</Form.Label>
+            <Form.Label className="label">Create a review below:</Form.Label>
             <Form.Control as="textarea" rows="3" />
           </Form.Group>
           <Button type="submit" variant="info">Submit</Button>
@@ -215,14 +215,14 @@ class MoviePage extends React.Component {
     }
 
     let editModal=
-      <Modal size="lg" show={this.state.show} onHide={this.handleClose}>
+      <Modal className="my-modal" size="lg" show={this.state.show} onHide={this.handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit your review below:</Modal.Title>
+          <Modal.Title className="label">Edit your review below:</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form id={this.state.reviewId} onSubmit={this.editFormSubmitHandler}>
             <Form.Group onChange={this.scoreHandler} controlId="exampleForm.ControlSelect1" >
-            <Form.Label>Select your score</Form.Label>
+            <Form.Label className="label">Select your score</Form.Label>
             <Form.Control as="select" defaultValue={this.state.score}>
             <option>1</option>
             <option>2</option>
@@ -237,7 +237,7 @@ class MoviePage extends React.Component {
             </Form.Control>
             </Form.Group>
             <Form.Group onChange={this.reviewHandler} id="review_form" controlId="exampleForm.ControlTextarea1" >
-              <Form.Label>Create a review below:</Form.Label>
+              <Form.Label className="label">Create a review below:</Form.Label>
               <Form.Control as="textarea" rows="3" defaultValue={this.state.input}/>
             </Form.Group>
             <Button type="submit" variant="info">Submit</Button>
@@ -258,12 +258,12 @@ class MoviePage extends React.Component {
             <Image src= {posterSource} rounded />
           </Col>
           <Col >
-          <h1>{this.state.currentMovie.title}</h1>
-          <h2>Avg Score: {this.state.currentMovie.avg_score}</h2>
-          <p>Overview: <br/> {this.state.currentMovie.description}</p>
+          <h1 className="label">{this.state.currentMovie.title}</h1>
+          <h2 className="label">Avg Score: {this.state.currentMovie.avg_score}</h2>
+          <p className="label">Overview: <br/> {this.state.currentMovie.description}</p>
           {formOrLogInAlert}
           {editModal}
-            <h1>Reviews:</h1>
+            <h1 className="label">Reviews:</h1>
             <ReviewContainer
               score={this.state.newScore}
               review={this.state.reviews}
