@@ -192,7 +192,7 @@ class MoviePage extends React.Component {
       formOrLogInAlert =
         <Form onSubmit={this.formReset}>
           <Form.Group onChange={this.scoreHandler} controlId="exampleForm.ControlSelect1">
-          <Form.Label>Select your score</Form.Label>
+          <Form.Label className="label">Select your score</Form.Label>
           <Form.Control as="select">
           <option>1</option>
           <option>2</option>
@@ -207,7 +207,7 @@ class MoviePage extends React.Component {
           </Form.Control>
           </Form.Group>
           <Form.Group onChange={this.reviewHandler} id="review_form" controlId="exampleForm.ControlTextarea1">
-            <Form.Label>Create a review below:</Form.Label>
+            <Form.Label className="label">Create a review below:</Form.Label>
             <Form.Control as="textarea" rows="3" />
           </Form.Group>
           <Button type="submit" variant="info">Submit</Button>
@@ -215,14 +215,14 @@ class MoviePage extends React.Component {
     }
 
     let editModal=
-      <Modal size="lg" show={this.state.show} onHide={this.handleClose}>
+      <Modal className="my-modal" size="lg" show={this.state.show} onHide={this.handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit your review below:</Modal.Title>
+          <Modal.Title className="label">Edit your review below:</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form id={this.state.reviewId} onSubmit={this.editFormSubmitHandler}>
             <Form.Group onChange={this.scoreHandler} controlId="exampleForm.ControlSelect1" >
-            <Form.Label>Select your score</Form.Label>
+            <Form.Label className="label">Select your score</Form.Label>
             <Form.Control as="select" defaultValue={this.state.score}>
             <option>1</option>
             <option>2</option>
@@ -237,7 +237,7 @@ class MoviePage extends React.Component {
             </Form.Control>
             </Form.Group>
             <Form.Group onChange={this.reviewHandler} id="review_form" controlId="exampleForm.ControlTextarea1" >
-              <Form.Label>Create a review below:</Form.Label>
+              <Form.Label className="label">Create a review below:</Form.Label>
               <Form.Control as="textarea" rows="3" defaultValue={this.state.input}/>
             </Form.Group>
             <Button type="submit" variant="info">Submit</Button>

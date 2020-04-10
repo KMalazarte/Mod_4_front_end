@@ -46,3 +46,7 @@
 .label{
   color: white
 }
+
+.my-modal .modal-content{
+  background-color: #6c757d;
+}
