@@ -172,7 +172,7 @@ class MoviePage extends React.Component {
     if(localStorage.loggedIn && alreadyReviewed(reviewList)){
       formOrLogInAlert =
         <Container>
-          <h1>Your review:</h1>
+          <h1 className="label">Your review:</h1>
           <Card bg="secondary" text="white">
             <Card.Header>
               {myReview[0].username}
@@ -258,12 +258,12 @@ class MoviePage extends React.Component {
             <Image src= {posterSource} rounded />
           </Col>
           <Col >
-          <h1>{this.state.currentMovie.title}</h1>
-          <h2>Avg Score: {this.state.currentMovie.avg_score}</h2>
-          <p>Overview: <br/> {this.state.currentMovie.description}</p>
+          <h1 className="label">{this.state.currentMovie.title}</h1>
+          <h2 className="label">Avg Score: {this.state.currentMovie.avg_score}</h2>
+          <p className="label">Overview: <br/> {this.state.currentMovie.description}</p>
           {formOrLogInAlert}
           {editModal}
-            <h1>Reviews:</h1>
+            <h1 className="label">Reviews:</h1>
             <ReviewContainer
               score={this.state.newScore}
               review={this.state.reviews}
