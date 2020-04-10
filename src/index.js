@@ -28,7 +28,7 @@ const LoadingIndicator = props => {
 
 ReactDOM.render(
   <>
-    <App/>
+    <App />
     <LoadingIndicator/>
   </>, document.getElementById('root')
 )
