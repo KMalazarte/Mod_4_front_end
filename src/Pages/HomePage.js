@@ -1,6 +1,6 @@
 import React from 'react'
 import MovieContainer from '../Components/MovieContainer'
-import { Container } from 'react-bootstrap'
+import { Container, Form, FormControl, Button } from 'react-bootstrap'
 
 const HomePage = props => {
 
@@ -8,15 +8,37 @@ const HomePage = props => {
 
   if (props.searchedMovie){
     return(
-      <Container className="bg" fluid>
-        <MovieContainer
-          movies={filtered}
-        />
+      <Container fluid>
+        <div id="search-div">
+          <Form onSubmit={props.searchSubmitHandler} id="movie-search-form">
+            <FormControl
+              onChange={props.searchHandler}
+              type="text"
+              placeholder="Type a movie in here"
+              className="mr-sm-2"
+            />
+            <Button type="submit" variant="outline-success">Search</Button>
+          </Form>
+        </div>
+          <MovieContainer
+            movies={filtered}
+          />
       </Container>
     )
   } else {
     return(
-      <Container className="bg" fluid>
+      <Container fluid>
+        <div id="search-div">
+          <Form onSubmit={props.searchSubmitHandler} id="movie-search-form">
+            <FormControl
+              onChange={props.searchHandler}
+              type="text"
+              placeholder="Type a movie in here"
+              className="mr-sm-2"
+            />
+            <Button type="submit" variant="outline-success">Search</Button>
+          </Form>
+        </div>
         <MovieContainer
           movies={props.movies}
         />

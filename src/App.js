@@ -130,6 +130,8 @@ const App = () => {
             loggedIn={loggedIn}
             movies={movies}
             searchedMovie={searchedMovie}
+            searchSubmitHandler={searchSubmitHandler}
+            searchHandler={searchHandler}
           />}
         />
         <Route path="/user" component={UserPage}/>

@@ -50,3 +50,15 @@
 .my-modal .modal-content{
   background-color: #6c757d;
 }
+
+#movie-search-form{
+  margin-left: 25%;
+  margin-right:25%;
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+  width: 50%;
+}
+
+#search-div{
+  text-align: center
+}
