@@ -103,6 +103,7 @@ const App = () => {
   let searchSubmitHandler = (e) => {
     e.preventDefault()
     setSearchedMovie(searchInput)
+    setRedirect(true)
   }
 
   let keyPressed = (e) => {
@@ -130,6 +131,8 @@ const App = () => {
             loggedIn={loggedIn}
             movies={movies}
             searchedMovie={searchedMovie}
+            searchSubmitHandler={searchSubmitHandler}
+            searchHandler={searchHandler}
           />}
         />
         <Route path="/user" component={UserPage}/>

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap'
+import { Navbar, Nav } from 'react-bootstrap'
+
 
 const NavBar = props => {
 
@@ -46,21 +47,11 @@ const NavBar = props => {
       <Navbar.Collapse id="basic-navbar-nav">
         {loggedInNavBar}
       <Nav>
-        <Form onSubmit={props.searchSubmitHandler} inline>
-          <FormControl
-            onChange={props.searchHandler}
-            type="text"
-            placeholder="Type a movie in here"
-            className="mr-sm-2"
-          />
-          <Button type="submit" variant="outline-success">Search</Button>
-        </Form>
       </Nav>
       </Navbar.Collapse>
     </Navbar>
   )
 }
 
-// <Nav.Link href="/login">Login</Nav.Link>
-// <Nav.Link href="/Signup">Signup</Nav.Link>
+
 export default NavBar
