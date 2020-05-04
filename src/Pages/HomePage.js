@@ -7,6 +7,7 @@ const HomePage = props => {
   let filtered =  props.movies.filter(movie => movie.title.toLowerCase().includes(props.searchedMovie.toLowerCase()))
 
   if (props.searchedMovie){
+  // YOU DID SEARCH A MOVIE AND HIT ENTER
     return(
       <Container fluid>
         <div id="search-div">
@@ -22,6 +23,7 @@ const HomePage = props => {
         </div>
           <MovieContainer
             movies={filtered}
+            searchedMovie={props.searchedMovie}
           />
       </Container>
     )
@@ -41,6 +43,7 @@ const HomePage = props => {
         </div>
         <MovieContainer
           movies={props.movies}
+          searchedMovie={props.searchedMovie}
         />
       </Container>
     )

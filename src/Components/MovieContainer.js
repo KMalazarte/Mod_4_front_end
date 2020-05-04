@@ -16,8 +16,8 @@ const MovieContainer = props => {
           />
       </Col>
     )
-  } else {
-    movieCards = <h1> Sorry, no movies match that search </h1>
+  } else if (!props.movies.length && props.searchedMovie){
+    movieCards = <h1 id="sorry-msg"> Sorry, no movies match that search </h1>
   }
 
   return(
