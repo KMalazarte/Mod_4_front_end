@@ -254,7 +254,7 @@ class MoviePage extends React.Component {
     return(
       <Container fluid>
         <Row>
-          <Col sm="3">
+          <Col sm="3" className="poster_details">
             <Image src= {posterSource} rounded />
           </Col>
           <Col >

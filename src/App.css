@@ -65,3 +65,7 @@
 #sorry-msg{
   color: white;
 }
+
+.col-sm-3{
+  max-width: none;
+}
