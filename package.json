@@ -9,7 +9,7 @@
     "@fortawesome/react-fontawesome": "^0.1.9",
     "@raphiniert/ra-data-postgrest": "^1.0.2",
     "dotenv": "^8.2.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "prop-types": "^15.7.2",
     "ra-data-json-server": "^3.3.2",
     "ra-data-simple-rest": "^3.3.2",
